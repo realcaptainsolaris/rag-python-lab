@@ -1,0 +1,962 @@
+[
+  {
+    "id": "Q001",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "3.0 explicit; authoritative current retry contract and migration support 72 hours.",
+    "split": "smoke",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q002",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "2.4 explicit; historical 24 hours remain correct.",
+    "split": "smoke",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q003",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Exact AUTH-104 identifier resolves expiry, not missing scope.",
+    "split": "smoke",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q004",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Exact AUTH-140 identifier resolves missing scope, not expiry.",
+    "split": "smoke",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q005",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Read versus write scopes are independently documented; telemetry:write is required.",
+    "split": "smoke",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q006",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "3.0 explicit; German question over English token lifetime evidence.",
+    "split": "smoke",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q007",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Team is the named plan; CSV provides device and workspace limits.",
+    "split": "smoke",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q008",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Enterprise is the named plan; CSV provides retention.",
+    "split": "smoke",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q009",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Header identity and receiver persistence require both supporting sections.",
+    "split": "smoke",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q010",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Export link and sender retry lifetimes require two documents.",
+    "split": "smoke",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q011",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Official authority requested; imported note remains untrusted, 72 hours canonical.",
+    "split": "smoke",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q012",
+    "reviewed": true,
+    "expected_behavior": "clarify",
+    "reason": "Version omitted and 2.4/3.0 differ; clarify, not absence of information. No implicit target version.",
+    "split": "smoke",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q013",
+    "reviewed": true,
+    "expected_behavior": "no_answer",
+    "reason": "MQTT availability guarantee is unspecified; no positive evidence exists.",
+    "split": "smoke",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q014",
+    "reviewed": true,
+    "expected_behavior": "no_answer",
+    "reason": "University discounts are unspecified; no positive evidence exists.",
+    "split": "smoke",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q015",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Operations engineer can access D009; escalation is 30 minutes.",
+    "split": "smoke",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q016",
+    "reviewed": true,
+    "expected_behavior": "deny",
+    "reason": "Customer admin cannot access Operations runbook; deny without confirming protected source.",
+    "split": "smoke",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q017",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Security role and team authorize exercise marker register.",
+    "split": "smoke",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q018",
+    "reviewed": true,
+    "expected_behavior": "deny",
+    "reason": "Operations engineer lacks Security team/role; deny, not missing global information.",
+    "split": "smoke",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q019",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "org-amber customer can read own support case; write scope was missing.",
+    "split": "smoke",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q020",
+    "reviewed": true,
+    "expected_behavior": "deny",
+    "reason": "org-cobalt customer cannot read org-amber case; organization boundary applies.",
+    "split": "smoke",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q021",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "English role question supported by German role description; admin creates exports.",
+    "split": "smoke",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q022",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Migration comparison explicitly addresses both lifetimes; the pilot defines the 2.4 to 3.0 migration.",
+    "split": "smoke",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q023",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Export endpoint identifier is explicitly defined for 3.0.",
+    "split": "smoke",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q024",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Workspace cancellation period is a documented 48 hours.",
+    "split": "smoke",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q025",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "General default is 90 days, distinct from explicit plan overrides.",
+    "split": "smoke",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q026",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: /api/v1",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q027",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: 180 minutes",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q028",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: reading.received",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q029",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: 6 hours",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q030",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: 14 days; 200 requests per minute",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q031",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: workspace-wide key in 1.8; scoped API key in 2.4",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q032",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: measurement.accepted",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q033",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: orbit-push; 2026-12-31",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q034",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: No; archived note describes 2.4; 3.0: 60 minutes and 1000 requests per minute",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q035",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: 2024-06-18",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q036",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: orbit-stream; measurement.created",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q037",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: /api/v2 to /api/v3; measurement.accepted to measurement.created",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q038",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: workspace_id plus external_id",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q039",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: 64 characters",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q040",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: No; uniqueness includes workspace",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q041",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: No; display rename preserves device identity",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q042",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: paused stops new observations and can resume; retired closes identity to further ingestion",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q043",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: 48 hours",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q044",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: device_id, timestamp, name, value, unit",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q045",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: No; finite JSON number required, no implicit string conversion",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q046",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: new measurement name required",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q047",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: /api/v3/measurements/batch; 200 measurements",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q048",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: 300 seconds",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q049",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: No; replacing the timestamp changes the recorded event; inspect retention, clock and sample age",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q050",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: 100 default; 500 maximum",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q051",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: next_cursor; cursor",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q052",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: No; cursor expires after 15 minutes independently of the 60-minute token; restart traversal",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q053",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: No; cursor is bound to workspace, filters and sort order",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q054",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: timestamp ascending, then measurement_id ascending",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q055",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: No; traversal is not a frozen snapshot; create an export snapshot",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q056",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: No; workspace-wide budget shared across keys",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q057",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: fixed UTC calendar minute",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q058",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: shared workspace callers and their request volume; new token does not reset budget",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q059",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: 200, 500, 1000 requests per minute respectively",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q060",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: 3 consecutive accepted readings strictly above 80",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q061",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: No; 80 is not strictly above the threshold",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q062",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: No; resolution requires at or below 75",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q063",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: do not trigger or clear",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q064",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: alert.suppressed; audit only",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q065",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: alert_id",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q066",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: 30 minutes; evaluation continues",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q067",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: No; suppressed notifications are audit only",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q068",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: clear condition satisfied",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q069",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: No; suppression and resolution are different states",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q070",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: X-Orbit-Key-ID",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q071",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: 2 keys; 120 minutes",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q072",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: HMAC-SHA256 authenticates the original raw body bytes; verify before parsing or reformatting",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q073",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: active sender key at attempt time",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q074",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: unchanged raw body bytes under X-Orbit-Signature using HMAC-SHA256",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q075",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: ORBIT_WORKSPACE_ID",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q076",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: 4 in-flight requests",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q077",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: acknowledged batch with durable per-item outcomes",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q078",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: 30 seconds; No; persistent authorization failure is not connectivity",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q079",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: X-Orbit-Delivery-ID; 96 hours",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q080",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: 48 hours",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q081",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: 12 teams",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q082",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: teams:manage",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q083",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: next authorized request",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q084",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: No; removal is rejected, pending invitation does not count",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q085",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: calendar month in UTC; EUR",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q086",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: daily peak registered devices",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q087",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: next UTC day",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q088",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: 12 months",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q089",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: day 1 of the next month",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q090",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: No; future visibility only, no restoration",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q091",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: 02:00 UTC",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q092",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: workspace.deleted; document store, lexical index, vector index and answer cache",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q093",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: audit action metadata for 365 days, not full measurement payloads",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q094",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: 4200 rows; JSONL",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q095",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: 2026-03-10T00:00:00Z included; 2026-03-11T00:00:00Z excluded",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q096",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: client copied read-only scopes and lacked exports:create",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q097",
+    "reviewed": true,
+    "expected_behavior": "deny",
+    "reason": "Supporting evidence exists but deterministic ACL denies it for customer_admin",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q098",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: 60 minutes from current token response; copied timer is stale",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q099",
+    "reviewed": true,
+    "expected_behavior": "deny",
+    "reason": "Supporting evidence exists but deterministic ACL denies it for customer_cobalt",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q100",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: 120 seconds; 30 seconds",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q101",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: 3 attempts; OPS-REC",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q102",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: lease 120 seconds; heartbeat 30 seconds; warning 15 minutes; escalation 30 minutes",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q103",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: up to 60 seconds propagation; verify a new request after that",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q104",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: SEC-RB-09; TRAINING_ONLY_MAPLE_62",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q105",
+    "reviewed": true,
+    "expected_behavior": "deny",
+    "reason": "Supporting evidence exists but deterministic ACL denies it for teralune_support",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q106",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: operations/export-queue",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q107",
+    "reviewed": true,
+    "expected_behavior": "deny",
+    "reason": "Supporting evidence exists but deterministic ACL denies it for customer_basic",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q108",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: new jobs completed while the oldest remained blocked; verify both the previously blocked job and a newly arrived job",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q109",
+    "reviewed": true,
+    "expected_behavior": "answer",
+    "reason": "Evidence plan supports the stated facts in this user and version context: X-Orbit-Delivery-ID was only tracked in memory before repair",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q110",
+    "reviewed": true,
+    "expected_behavior": "clarify",
+    "reason": "Ask for the workspace policy or selected plan.",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q111",
+    "reviewed": true,
+    "expected_behavior": "clarify",
+    "reason": "Ask for the caller role and credential scopes in the target workspace.",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q112",
+    "reviewed": true,
+    "expected_behavior": "clarify",
+    "reason": "Ask for Orbit product generation.",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q113",
+    "reviewed": true,
+    "expected_behavior": "clarify",
+    "reason": "Ask whether the caller means OAuth access token or API key, and which generation.",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q114",
+    "reviewed": true,
+    "expected_behavior": "clarify",
+    "reason": "Ask which alert event: opened, resolved or suppressed.",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q115",
+    "reviewed": true,
+    "expected_behavior": "no_answer",
+    "reason": "No fact or positive evidence is defined in this frozen corpus for the requested information.",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q116",
+    "reviewed": true,
+    "expected_behavior": "no_answer",
+    "reason": "No fact or positive evidence is defined in this frozen corpus for the requested information.",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q117",
+    "reviewed": true,
+    "expected_behavior": "no_answer",
+    "reason": "No fact or positive evidence is defined in this frozen corpus for the requested information.",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q118",
+    "reviewed": true,
+    "expected_behavior": "no_answer",
+    "reason": "No fact or positive evidence is defined in this frozen corpus for the requested information.",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q119",
+    "reviewed": true,
+    "expected_behavior": "deny",
+    "reason": "Supporting evidence exists but deterministic ACL denies it for customer_basic",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  },
+  {
+    "id": "Q120",
+    "reviewed": true,
+    "expected_behavior": "deny",
+    "reason": "Supporting evidence exists but deterministic ACL denies it for security_admin",
+    "split": "test",
+    "review_scope": "Editorial canonical bindings and context; not independent annotation."
+  }
+]

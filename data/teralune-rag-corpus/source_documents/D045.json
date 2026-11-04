@@ -1,0 +1,50 @@
+{
+  "id": "D045",
+  "title": "Aufbewahrung erklärt",
+  "product": "orbit",
+  "version": "3.0",
+  "language": "de",
+  "access": "PUBLIC",
+  "document_type": "faq",
+  "status": "current",
+  "topics": [
+    "aufbewahrung"
+  ],
+  "rag_features": [
+    "multilingual",
+    "multi_evidence"
+  ],
+  "format": "md",
+  "organization": null,
+  "team": null,
+  "required_roles": [],
+  "authority": "official",
+  "synthetic": true,
+  "published_at": "2026-02-10",
+  "sections": [
+    {
+      "id": "D045-E01",
+      "heading": "Welche Zeit zählt?",
+      "text": "Die allgemeine Vorgabe für einen neuen Orbit-3.0-Workspace beträgt {{versions.3.0.default_retention_days}} Tage. Ein gewählter Plan kann eine andere Aufbewahrung konfigurieren. Maßgeblich ist die im Workspace gespeicherte Richtlinie, nicht die Zahl aus einer älteren Installationsnotiz.\n\nDie Sichtbarkeit richtet sich nach dem Zeitstempel der Messung. Ein spät eingetroffener Messwert ist dadurch nicht automatisch für eine vollständige neue Aufbewahrungsperiode sichtbar. Bei einer Lücke zuerst Zeitstempel und Richtlinie vergleichen und erst danach den Transport untersuchen.",
+      "fact_refs": [
+        "versions.3.0.default_retention_days"
+      ]
+    },
+    {
+      "id": "D045-E02",
+      "heading": "Mehr Tage nach einer Änderung",
+      "text": "Eine längere Aufbewahrung stellt bereits entfernte Messwerte nicht wieder her. Die Bereinigung erfolgt um {{retention.cleanup_utc_hour}}:00 UTC. Eine kürzere Richtlinie kann beim nächsten Lauf ältere Daten entfernen. Ein geplanter Export ist noch keine abgeschlossene Sicherung.\n\nWer Daten außerhalb der Plattform behalten muss, prüft das Ergebnis eines abgeschlossenen Exports und die eigene Aufbewahrung separat. Die Frist eines Downloadlinks beschreibt nur den Zugriff auf diese Datei und ist keine Verlängerung der Workspace-Richtlinie.",
+      "fact_refs": [
+        "retention.cleanup_utc_hour"
+      ]
+    },
+    {
+      "id": "D045-E03",
+      "heading": "Warum stehen im Audit andere Fristen?",
+      "text": "Administrative Auditaufzeichnungen bleiben {{operations.audit_retention_days}} Tage erhalten. Sie beschreiben Änderungen und Aktionen, nicht die vollständigen Messwertinhalte. Eine Auditaufzeichnung über eine Löschung berechtigt nicht dazu, die entfernten Inhalte erneut bereitzustellen.\n\nAuch ein lokaler Cache kann eine frühere Antwort enthalten. Beim Entfernen einer Quelle muss der Verbraucher deshalb alle abgeleiteten Ablagen prüfen. Der Löschzustand ist eine fachliche Information und kein gewöhnlicher Messwert, der bei einem Neuimport wieder überschrieben werden sollte.",
+      "fact_refs": [
+        "operations.audit_retention_days"
+      ]
+    }
+  ]
+}

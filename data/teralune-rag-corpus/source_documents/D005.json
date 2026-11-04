@@ -1,0 +1,58 @@
+{
+  "id": "D005",
+  "title": "Migrating from Orbit 2.4 to 3.0",
+  "product": "orbit",
+  "version": "3.0",
+  "language": "en",
+  "access": "PUBLIC",
+  "document_type": "migration",
+  "status": "current",
+  "topics": [
+    "migrating"
+  ],
+  "rag_features": [
+    "version_conflict",
+    "conflict_resolution",
+    "multi_evidence"
+  ],
+  "format": "md",
+  "sections": [
+    {
+      "id": "D005-E01",
+      "heading": "Contract changes",
+      "text": "Orbit 3.0 was released on {{versions.3.0.release_date}}. Change the API prefix from {{versions.2.4.api_prefix}} to {{versions.3.0.api_prefix}}. The webhook retry window changes from {{versions.2.4.webhook_retry_hours}} to {{versions.3.0.webhook_retry_hours}} hours. The access-token lifetime changes from {{versions.2.4.access_token_minutes}} to {{versions.3.0.access_token_minutes}} minutes. Historical contracts remain correct for their own generation.\n\nPlan these changes independently. Moving the HTTP prefix does not update a receiver database retention task. Rotating service credentials does not change the sender generation. During a staged deployment, log the generation alongside delivery identifiers so an incident can be reconstructed without guessing which contract applied.",
+      "fact_refs": [
+        "versions.3.0.release_date",
+        "versions.2.4.api_prefix",
+        "versions.3.0.api_prefix",
+        "versions.2.4.webhook_retry_hours",
+        "versions.3.0.webhook_retry_hours",
+        "versions.2.4.access_token_minutes",
+        "versions.3.0.access_token_minutes"
+      ]
+    },
+    {
+      "id": "D005-E02",
+      "heading": "Retention and traffic",
+      "text": "New workspaces change from a default of {{versions.2.4.default_retention_days}} days to {{versions.3.0.default_retention_days}} days. Existing workspace retention is not changed automatically by an upgrade. The workspace request budget changes from {{versions.2.4.rate_limit_per_minute}} to {{versions.3.0.rate_limit_per_minute}} requests per minute. Traffic from multiple keys in the same workspace shares that budget.\n\nBefore cutover, inventory time-based assumptions in cleanup jobs and dashboards. Check receivers, authentication caches, export clients and retention configuration separately. A larger default for new workspaces cannot recover measurements already removed under an older policy.",
+      "fact_refs": [
+        "versions.2.4.default_retention_days",
+        "versions.3.0.default_retention_days",
+        "versions.2.4.rate_limit_per_minute",
+        "versions.3.0.rate_limit_per_minute"
+      ]
+    },
+    {
+      "id": "D005-E03",
+      "heading": "Cutover record",
+      "text": "Export the existing configuration and record the current retention value before changing the deployment. Test against an isolated workspace, inspect one read, one write and one callback, then schedule the production cutover. If the deployment is rolled back, restore the client prefix deliberately rather than allowing individual clients to choose one automatically.\n\nA customer note saying callbacks last one day describes the old contract. Resolve such a note against the deployed generation and the official contract. The publication date alone does not establish which rule applies.",
+      "fact_refs": []
+    }
+  ],
+  "organization": null,
+  "team": null,
+  "required_roles": [],
+  "authority": "official",
+  "synthetic": true,
+  "published_at": "2026-02-10"
+}

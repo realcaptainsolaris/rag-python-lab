@@ -1,0 +1,48 @@
+{
+  "id": "D016",
+  "title": "Legacy authentication",
+  "product": "orbit",
+  "version": "1.8",
+  "language": "en",
+  "access": "PUBLIC",
+  "document_type": "legacy",
+  "status": "historical",
+  "topics": [
+    "legacy"
+  ],
+  "rag_features": [
+    "version_conflict"
+  ],
+  "format": "md",
+  "organization": null,
+  "team": null,
+  "required_roles": [],
+  "authority": "official",
+  "synthetic": true,
+  "published_at": "2022-04-12",
+  "sections": [
+    {
+      "id": "D016-E01",
+      "heading": "Workspace credentials in 1.8",
+      "text": "Orbit 1.8 uses a {{legacy.v1_key_model}} for simple integrations. An OAuth access token for this generation lasts {{versions.1.8.access_token_minutes}} minutes. Do not infer token expiry from the API key lifetime. These are separate credential types, even when the same service account owns them.\n\nAssign one owner to each distribution of the workspace key. If ownership changes, inventory every sender before revoking the previous copy. A process can continue running with an old key from an environment variable even after an operator updates a configuration file on disk. Restart or reload the process deliberately and confirm its next request.",
+      "fact_refs": [
+        "legacy.v1_key_model",
+        "versions.1.8.access_token_minutes"
+      ]
+    },
+    {
+      "id": "D016-E02",
+      "heading": "Moving to scoped credentials",
+      "text": "The later Orbit 2.4 key model is a {{legacy.v2_key_model}}. Read and write operations can therefore fail independently after a migration. A reader copied into a writing service does not gain write access because the old workspace-wide key used to work there.\n\nWhen diagnosing a cutover, preserve the credential type as well as the product version in the configuration inventory. A label such as production-key does not identify either. Never compare raw credential strings in an incident document. Compare nonsecret key identifiers and the assigned workspace instead.",
+      "fact_refs": [
+        "legacy.v2_key_model"
+      ]
+    },
+    {
+      "id": "D016-E03",
+      "heading": "Expiry and client caches",
+      "text": "An application should use the expiry returned by the token response. Caching a token for the lifetime assumed by a different generation creates a periodic failure that can look like an intermittent network issue. Renew it before expiry and replace the cache entry atomically.\n\nIf one worker refreshes a token while another sends a request, both must use a coherent cache strategy. Avoid replacing a newer entry with an older response from a slow refresh request. This is a client coordination problem; increasing webhook retries does not extend an access token.",
+      "fact_refs": []
+    }
+  ]
+}

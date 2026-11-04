@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.1",
+  "question_fields": [
+    "id",
+    "question",
+    "category",
+    "product_version",
+    "language",
+    "user_id",
+    "expected_facts",
+    "fact_refs",
+    "evidence_ids",
+    "evidence_documents",
+    "difficulty",
+    "relevance",
+    "all_evidence_required",
+    "expected_behavior",
+    "split"
+  ],
+  "relevance": "2=direct supporting passage; 1=optional background; 0=not relevant. Only judged pilot support is listed.",
+  "multi_evidence": "all_evidence_required means the listed passages collectively support the answer. For Q022 a single passage contains both comparisons.",
+  "scope": "Closed, curated release qrels. Additional valid evidence may need pooling before quantitative comparison.",
+  "ground_truth_origin": "Facts plus question plan; never extracted or guessed from generated outputs.",
+  "split": "25 smoke questions from the accepted pilot and 95 new test questions; ID-disjoint, not a blind scientific benchmark; intentional ACL pairs remain together.",
+  "expected_behavior": {
+    "answer": "A unique answer is supported by evidence accessible to the user in the target version.",
+    "clarify": "Relevant information exists, but a missing discriminator prevents a unique answer. No positive single-answer qrels.",
+    "no_answer": "Required information is absent from the available corpus. No positive or blocked qrels.",
+    "deny": "The required evidence exists but is inaccessible to this user. Blocked evidence is evaluator-only."
+  },
+  "version_context": "product_version is null when the generation is the missing discriminator. clarify may retain a known generation if the missing field is plan, role or event_type.",
+  "privacy": "deny is an internal grading outcome, not permission to reveal that a protected document exists. User-facing wording may match no_answer.",
+  "clarification_field": [
+    "version",
+    "plan",
+    "role",
+    "credential_type",
+    "event_type"
+  ]
+}

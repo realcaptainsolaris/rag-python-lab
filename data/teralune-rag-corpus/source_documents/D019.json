@@ -1,0 +1,47 @@
+{
+  "id": "D019",
+  "title": "Device lifecycle",
+  "product": "orbit",
+  "version": "3.0",
+  "language": "en",
+  "access": "PUBLIC",
+  "document_type": "guide",
+  "status": "current",
+  "topics": [
+    "device"
+  ],
+  "rag_features": [
+    "document_update"
+  ],
+  "format": "md",
+  "organization": null,
+  "team": null,
+  "required_roles": [],
+  "authority": "official",
+  "synthetic": true,
+  "published_at": "2026-02-10",
+  "sections": [
+    {
+      "id": "D019-E01",
+      "heading": "States and observation flow",
+      "text": "A device can be {{devices.states}}. active accepts normal observation traffic; paused stops new observations without removing the existing history; retired closes the identity to further ingestion. A device that has been paused can be resumed. Retirement should be used when the physical device or integration identity will no longer be used.\n\nDo not interpret missing traffic as a lifecycle change. A device can remain active while its sender is disconnected. Lifecycle state describes what the service will accept, while connectivity describes whether the sender is currently reaching it. These signals should appear separately in an operations dashboard.\n\n- Use pause for a temporary stop in accepted observations.\n- Use retirement when the registration will not be used again.\n- Investigate connectivity separately from either lifecycle action.",
+      "fact_refs": [
+        "devices.states"
+      ]
+    },
+    {
+      "id": "D019-E02",
+      "heading": "Renaming without changing identity",
+      "text": "Renaming a device preserves its device_id and external identifier. The display label is for people; it is not the key joining historical measurements. Update an inventory label without registering a second device. A replacement physical unit can be assigned a separate registration if its history needs to remain distinguishable.\n\nA maintenance team should record whether a change is a rename, a repair or a replacement. If two physical units reuse one integration identity, an analyst cannot reliably separate their histories later. Document that decision at installation time rather than inferring it from gaps in the series.",
+      "fact_refs": []
+    },
+    {
+      "id": "D019-E03",
+      "heading": "Deletion request",
+      "text": "Device deletion has a {{devices.delete_grace_hours}} hour grace period. Cancel the request during this interval if the wrong identity was selected. Stop the sender before submitting deletion; otherwise it may continue queuing requests that will never be accepted.\n\nDeletion is distinct from pausing. Use pause when observations should stop temporarily and historical data must remain available under its existing retention policy. A successful delete request is not proof that every downstream export or cache was removed. Review the workspace deletion and retention policies when operating downstream copies.",
+      "fact_refs": [
+        "devices.delete_grace_hours"
+      ]
+    }
+  ]
+}

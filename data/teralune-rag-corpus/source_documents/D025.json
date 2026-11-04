@@ -1,0 +1,70 @@
+{
+  "id": "D025",
+  "title": "Alert event types",
+  "product": "orbit",
+  "version": "3.0",
+  "language": "en",
+  "access": "PUBLIC",
+  "document_type": "reference",
+  "status": "current",
+  "topics": [
+    "alert"
+  ],
+  "rag_features": [
+    "exact_identifier",
+    "table_lookup"
+  ],
+  "format": "csv",
+  "organization": null,
+  "team": null,
+  "required_roles": [],
+  "authority": "official",
+  "synthetic": true,
+  "published_at": "2026-02-10",
+  "sections": [
+    {
+      "id": "D025-E01",
+      "heading": "Alert transition catalogue",
+      "text": "The catalogue separates transitions that create receiver deliveries from events that remain in audit history. A subscription must name the event precisely; alert.opened and alert.resolved are not interchangeable. The payload key identifies the object a consumer should correlate. Do not interpret the absence of a callback for an audit-only event as evidence that the alert engine failed.",
+      "fact_refs": [
+        "event_catalog.alert.opened.meaning",
+        "event_catalog.alert.opened.delivery",
+        "event_catalog.alert.opened.payload_key",
+        "event_catalog.alert.resolved.meaning",
+        "event_catalog.alert.resolved.delivery",
+        "event_catalog.alert.resolved.payload_key",
+        "event_catalog.alert.suppressed.meaning",
+        "event_catalog.alert.suppressed.delivery",
+        "event_catalog.alert.suppressed.payload_key"
+      ],
+      "table": {
+        "headers": [
+          "event",
+          "meaning",
+          "delivery",
+          "payload_key"
+        ],
+        "rows": [
+          [
+            "alert.opened",
+            "{{event_catalog.alert.opened.meaning}}",
+            "{{event_catalog.alert.opened.delivery}}",
+            "{{event_catalog.alert.opened.payload_key}}"
+          ],
+          [
+            "alert.resolved",
+            "{{event_catalog.alert.resolved.meaning}}",
+            "{{event_catalog.alert.resolved.delivery}}",
+            "{{event_catalog.alert.resolved.payload_key}}"
+          ],
+          [
+            "alert.suppressed",
+            "{{event_catalog.alert.suppressed.meaning}}",
+            "{{event_catalog.alert.suppressed.delivery}}",
+            "{{event_catalog.alert.suppressed.payload_key}}"
+          ]
+        ]
+      }
+    }
+  ]
+}

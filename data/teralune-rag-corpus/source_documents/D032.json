@@ -1,0 +1,55 @@
+{
+  "id": "D032",
+  "title": "Orbit 2 release notes",
+  "product": "orbit",
+  "version": "2.4",
+  "language": "en",
+  "access": "PUBLIC",
+  "document_type": "release_notes",
+  "status": "historical",
+  "topics": [
+    "orbit"
+  ],
+  "rag_features": [
+    "version_conflict",
+    "exact_identifier"
+  ],
+  "format": "md",
+  "organization": null,
+  "team": null,
+  "required_roles": [],
+  "authority": "official",
+  "synthetic": true,
+  "published_at": "2024-06-18",
+  "sections": [
+    {
+      "id": "D032-E01",
+      "heading": "Orbit 2.4 release",
+      "text": "Orbit 2.4 was released on {{versions.2.4.release_date}}. The API prefix is {{versions.2.4.api_prefix}} and the OAuth access-token lifetime is {{versions.2.4.access_token_minutes}} minutes. This release introduces the scoped API-key model for integrations moving from the workspace-wide keys used in 1.8.\n\nReview each integration's read and write needs during that migration. Replacing one broad credential with a restricted reader can make initial connectivity tests pass while stopping observation ingestion. Keep the scope assignment in the rollout record so a later operator can distinguish a deliberate restriction from an accidental omission.",
+      "fact_refs": [
+        "versions.2.4.release_date",
+        "versions.2.4.api_prefix",
+        "versions.2.4.access_token_minutes"
+      ]
+    },
+    {
+      "id": "D032-E02",
+      "heading": "Capacity and notification changes",
+      "text": "The request budget is {{versions.2.4.rate_limit_per_minute}} per minute and the provisioning retention default is {{versions.2.4.default_retention_days}} days. The measurement event name is {{legacy.event_v2}}. The retry deadline is {{versions.2.4.webhook_retry_hours}} hours.\n\nA receiver that still subscribes only to the 1.8 notification name requires an explicit subscription change. The acceptance of an API request does not prove that the receiver subscription was migrated. Record the notification name alongside the client prefix during deployment.",
+      "fact_refs": [
+        "versions.2.4.rate_limit_per_minute",
+        "versions.2.4.default_retention_days",
+        "legacy.event_v2",
+        "versions.2.4.webhook_retry_hours"
+      ]
+    },
+    {
+      "id": "D032-E03",
+      "heading": "Connector compatibility",
+      "text": "The integration connector for this generation is {{legacy.v2_connector}}. Keep its configuration with the deployment until the later connector migration is complete. A renamed binary can retain an older configuration format, so package names alone are not a reliable compatibility record.\n\nArchive the previous deployment instructions when completing a migration. Historical release notes describe the released contract and should not be edited to resemble a later generation. Use the later migration guide to determine what changed.",
+      "fact_refs": [
+        "legacy.v2_connector"
+      ]
+    }
+  ]
+}

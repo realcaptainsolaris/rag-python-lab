@@ -1,0 +1,69 @@
+{
+  "id": "D038",
+  "title": "Queue lease engineering",
+  "product": "orbit",
+  "version": "3.0",
+  "language": "en",
+  "access": "INTERNAL",
+  "document_type": "engineering",
+  "status": "current",
+  "topics": [
+    "queue"
+  ],
+  "rag_features": [
+    "acl",
+    "chunk_boundary",
+    "multi_evidence"
+  ],
+  "format": "md",
+  "organization": null,
+  "team": "operations",
+  "required_roles": [],
+  "authority": "official",
+  "synthetic": true,
+  "published_at": "2026-02-10",
+  "sections": [
+    {
+      "id": "D038-E01",
+      "heading": "Lease ownership",
+      "text": "An export worker holds a lease for {{queue.lease_seconds}} seconds and refreshes it every {{queue.heartbeat_seconds}} seconds. A lease prevents another worker from starting the same job while the owner is making progress. The job state alone is insufficient to establish whether a worker still owns it.\n\nUse the lease owner and renewal timestamp together. A running state with an old renewal can indicate a stopped worker, but a delayed monitoring sample can look similar. Read the authoritative lease record before scheduling recovery. A copied dashboard value is not a lock.",
+      "fact_refs": [
+        "queue.lease_seconds",
+        "queue.heartbeat_seconds"
+      ]
+    },
+    {
+      "id": "D038-E02",
+      "heading": "Recovery gate",
+      "text": "Automatic recovery is limited to {{queue.max_recovery_attempts}} attempts. Recovery records use the prefix {{queue.recovery_ticket_prefix}}. After the limit, an engineer reviews the job and its previous outputs rather than starting another automatic retry.\n\nSeparate the recovery attempt counter from an ordinary HTTP download retry. A completed export whose link is no longer valid does not need its worker lease recovered. Likewise, a waiting job has no running worker lease to revoke. Use the state transition that matches the actual failure.\n\nRecovery review:\n\n1. Read the authoritative job and lease state.\n2. Identify the previous owner and last renewal.\n3. Reconcile any existing output with the manifest.\n4. Apply the selected ownership transition.\n5. Observe the affected job before closing the recovery record.",
+      "fact_refs": [
+        "queue.max_recovery_attempts",
+        "queue.recovery_ticket_prefix"
+      ],
+      "level": 3,
+      "parent_evidence_id": "D038-E01"
+    },
+    {
+      "id": "D038-E03",
+      "heading": "Fairness after a restart",
+      "text": "Eligible jobs are scheduled {{queue.priority}}. A recovery action must preserve tenant boundaries and must not transfer an output file between workspaces. The operator records the selected job identifier, previous lease owner and new owner.\n\nBefore marking a recovered job complete, reconcile the existing output object with the job manifest. A worker can finish uploading a file just before it loses contact with the database. Starting a second worker without checking that object can leave duplicate files with inconsistent completion records.",
+      "fact_refs": [
+        "queue.priority"
+      ],
+      "level": 3,
+      "parent_evidence_id": "D038-E01"
+    },
+    {
+      "id": "D038-E04",
+      "heading": "Ownership race during recovery",
+      "text": "A worker can finish uploading an output object and lose its lease before committing the completion record. The recovery worker then sees a noncompleted database state even though the object exists. The safe decision requires comparing object identity, job manifest and previous owner, rather than assuming that every noncompleted job needs a fresh file.\n\nRecord the observation and the resulting transition together. If an operator reads the old state, pauses, and later applies a change without checking the current lease, a live worker may have renewed ownership in the meantime. A dashboard approval is not an atomic state transition. Use the authoritative state at the point the recovery decision is applied.\n\nThe engineering record should preserve why the new owner was eligible. It should not depend on reconstructing that reason from a graph whose underlying metrics have already expired. Keep a compact trace of the old owner, last renewal and the selected job; avoid including the exported measurement payload in the ownership record.",
+      "fact_refs": []
+    },
+    {
+      "id": "D038-E05",
+      "heading": "Recovery outcome ledger",
+      "text": "For each recovered job, distinguish reattached output, resumed work and a newly generated output. These outcomes can all end in a completed job state, but they have different reconciliation implications. A report that records only completed loses the information needed to explain why two object versions appeared.\n\nDuring a multi-tenant incident, group observations by workspace before summarizing totals. A falling global queue count can conceal one tenant that never regained progress. A successful recovery in one workspace is not evidence that another workspace has the same permission, source data or output state. Keep those decisions isolated.\n\nBefore closing the incident, verify the oldest affected job and a new unaffected job. The first establishes that the original block was removed; the second checks that recovery did not break ordinary scheduling. Record both checks with job references so the following operator does not have to infer them from a single aggregate metric.",
+      "fact_refs": []
+    }
+  ]
+}

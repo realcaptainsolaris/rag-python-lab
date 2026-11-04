@@ -1,0 +1,63 @@
+{
+  "id": "D014",
+  "title": "Workspace Roles and Access",
+  "product": "orbit",
+  "version": "3.0",
+  "language": "de",
+  "access": "PUBLIC",
+  "document_type": "reference",
+  "status": "current",
+  "topics": [
+    "workspace"
+  ],
+  "rag_features": [
+    "acl",
+    "table_lookup",
+    "multilingual"
+  ],
+  "format": "docx",
+  "sections": [
+    {
+      "id": "D014-E01",
+      "heading": "Rollengrenzen",
+      "text": "Eine Workspace-Rolle gilt im zugewiesenen Workspace. Viewer dürfen Geräte und Telemetrie lesen. Operator dürfen zusätzlich Telemetrie schreiben. Admin dürfen zusätzlich Exporte anlegen und Teams verwalten. Ein Admin eines Kunden-Workspace erhält dadurch keinen Zugriff auf interne Betriebsunterlagen.\n\nProduktberechtigungen und die Klassifikation von Dokumenten werden getrennt geprüft. Ein gültiger Kundenlogin macht ein internes Runbook nicht zu einer Kundenunterlage. Dasselbe gilt für einen Link auf ein Dokument: Ein Link ersetzt keine Zugriffsprüfung.",
+      "fact_refs": [
+        "roles.viewer",
+        "roles.operator",
+        "roles.admin"
+      ],
+      "table": {
+        "headers": [
+          "Rolle",
+          "Scopes"
+        ],
+        "rows": [
+          [
+            "viewer",
+            "{{roles.viewer}}"
+          ],
+          [
+            "operator",
+            "{{roles.operator}}"
+          ],
+          [
+            "admin",
+            "{{roles.admin}}"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "D014-E02",
+      "heading": "Prüfung im Dienst",
+      "text": "Der Dienst prüft Organisation, Workspace und Scope vor der Datenabfrage. Fehlende Berechtigungen werden nicht durch zusätzliche Anweisungen an ein Sprachmodell repariert. Teams helfen bei der Zuordnung von Verantwortung; sie erweitern den Zugriff nicht automatisch auf andere Organisationen.\n\nBeim Entzug einer Rolle müssen abgeleitete Sitzungen und zwischengespeicherte Antworten berücksichtigt werden. Ein zuvor erlaubter Treffer bleibt nach dem Entzug nicht allein deshalb erlaubt, weil er bereits im Cache liegt. Die Entscheidung wird im aktuellen Benutzerkontext erneut getroffen.",
+      "fact_refs": []
+    }
+  ],
+  "organization": null,
+  "team": null,
+  "required_roles": [],
+  "authority": "official",
+  "synthetic": true,
+  "published_at": "2026-02-10"
+}

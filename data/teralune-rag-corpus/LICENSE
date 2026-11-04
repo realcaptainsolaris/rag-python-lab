@@ -1,0 +1,21 @@
+Teralune RAG Training Corpus
+
+All original non-code content, including corpus documents, canonical facts,
+metadata, evaluation questions, evidence annotations and handbook prose, is
+licensed under Creative Commons Attribution 4.0 International (CC BY 4.0):
+https://creativecommons.org/licenses/by/4.0/
+The authoritative legal terms are available at:
+https://creativecommons.org/licenses/by/4.0/legalcode
+
+Attribution designation: Teralune RAG Training Corpus contributors (2026).
+Suggested credit: "Teralune RAG Training Corpus, 1.0.0, CC BY 4.0;
+modified by [your name, if applicable]." Include the license link and indicate
+changes. Commercial use is permitted subject to the license terms.
+
+Standalone software in scripts/, tests/ and source/author_pilot.py is licensed
+under MIT; see LICENSE-CODE. These software terms do not relicense the datasets
+that the software generates. Third-party dependencies retain their own licenses.
+
+Teralune Systems and Teralune Orbit are fictional. No endorsement by any real
+entity is implied. No warranty is provided. This corpus was generated with AI
+assistance and editorially structured for teaching, not independently benchmarked.

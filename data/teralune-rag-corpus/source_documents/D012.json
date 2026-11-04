@@ -1,0 +1,47 @@
+{
+  "id": "D012",
+  "title": "Asynchronous Data Export",
+  "product": "orbit",
+  "version": "3.0",
+  "language": "en",
+  "access": "PUBLIC",
+  "document_type": "guide",
+  "status": "current",
+  "topics": [
+    "asynchronous"
+  ],
+  "rag_features": [
+    "multi_evidence",
+    "exact_identifier"
+  ],
+  "format": "md",
+  "sections": [
+    {
+      "id": "D012-E01",
+      "heading": "Create a job",
+      "text": "Submit a job to {{export.endpoint}} with scope {{export.scope}}. Supported output formats are {{export.formats}}. One export may span at most {{export.max_window_days}} days and contain at most {{export.max_rows}} rows. Larger requests must be split into independently tracked jobs. Splitting by date does not bypass a row limit within one period.\n\nThe service returns a job identifier before a file exists. Preserve that identifier and poll its state, or subscribe to the completion event. Retrying a successful job submission because the file is not immediately available can create additional jobs. Keep job creation separate from download retries.",
+      "fact_refs": [
+        "export.endpoint",
+        "export.scope",
+        "export.formats",
+        "export.max_window_days",
+        "export.max_rows"
+      ]
+    },
+    {
+      "id": "D012-E02",
+      "heading": "Completion and download",
+      "text": "The event {{export.event}} signals that the file is ready. A download link expires after {{export.download_hours}} hours. The link lifetime is independent of the webhook retry deadline. A late callback can therefore refer to a link that is no longer usable. Request a new export after verifying the original job and its selected interval; do not assume a callback failure means the file never existed.\n\nCSV is convenient for a flat analysis table; JSONL preserves one structured record per line. A completed export is a snapshot of the selected data, not a live subscription. Deleting the local downloaded file does not change server retention. Treat the download URL as sensitive while it is active and avoid including it in public tickets.",
+      "fact_refs": [
+        "export.event",
+        "export.download_hours"
+      ]
+    }
+  ],
+  "organization": null,
+  "team": null,
+  "required_roles": [],
+  "authority": "official",
+  "synthetic": true,
+  "published_at": "2026-02-10"
+}

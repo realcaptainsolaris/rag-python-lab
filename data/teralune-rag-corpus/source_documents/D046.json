@@ -1,0 +1,68 @@
+{
+  "id": "D046",
+  "title": "Betriebsübergabe",
+  "product": "orbit",
+  "version": "3.0",
+  "language": "de",
+  "access": "INTERNAL",
+  "document_type": "runbook",
+  "status": "current",
+  "topics": [
+    "betriebsübergabe"
+  ],
+  "rag_features": [
+    "acl",
+    "chunk_boundary",
+    "multi_evidence"
+  ],
+  "format": "docx",
+  "organization": null,
+  "team": "operations",
+  "required_roles": [],
+  "authority": "official",
+  "synthetic": true,
+  "published_at": "2026-02-10",
+  "sections": [
+    {
+      "id": "D046-E01",
+      "heading": "Übergabe der Exportwarteschlange",
+      "text": "Die Übergabe liegt unter {{queue.handover_path}}. Sie benennt den ältesten wartenden Auftrag, den zuständigen Operator und den letzten geprüften Workerzustand. Eine reine Gesamtzahl wartender Aufträge reicht nicht aus: Ein einzelner alter Auftrag kann durch viele neue verdeckt werden.\n\nBei jeder Schichtübergabe offene Wiederaufnahmen mit ihrer Auftragskennung prüfen. Ein mündlicher Hinweis, dass die Queue wieder läuft, ersetzt nicht den Nachweis, dass der zuvor blockierte Auftrag tatsächlich weiterverarbeitet wird. Die Kundenzuordnung bleibt auch in internen Betriebsunterlagen Teil des Vorgangs.",
+      "fact_refs": [
+        "queue.handover_path"
+      ]
+    },
+    {
+      "id": "D046-E02",
+      "heading": "Zeitwerte gemeinsam lesen",
+      "text": "Der Lease hält {{queue.lease_seconds}} Sekunden; der Heartbeat erfolgt alle {{queue.heartbeat_seconds}} Sekunden. Ab {{operations.queue_warning_minutes}} Minuten Wartezeit wird geprüft und ab {{operations.queue_escalation_minutes}} Minuten eskaliert. Diese Intervalle beschreiben unterschiedliche Zustände und dürfen nicht als derselbe Timeout behandelt werden.\n\nDie Wartezeit gehört zu noch nicht gestarteten Aufträgen. Lease und Heartbeat beschreiben einen gestarteten Worker. Vor einer manuellen Maßnahme muss die Übergabe festhalten, welcher dieser Zustände tatsächlich beobachtet wurde.",
+      "fact_refs": [
+        "queue.lease_seconds",
+        "queue.heartbeat_seconds",
+        "operations.queue_warning_minutes",
+        "operations.queue_escalation_minutes"
+      ],
+      "level": 3,
+      "parent_evidence_id": "D046-E01"
+    },
+    {
+      "id": "D046-E03",
+      "heading": "Freigabe nach Wiederaufnahme",
+      "text": "Nach der Wiederaufnahme den zuvor ältesten Auftrag und einen neu eingegangenen Auftrag verfolgen. Prüfen, ob die Ausgabedatei zum richtigen Workspace und Jobmanifest gehört. Eine Datei mit passender Endung, aber falscher Auftragskennung ist kein erfolgreicher Abschluss.\n\nDie Übergabe enthält keine Downloadlinks oder Credentials. Wer zusätzliche Daten für eine Untersuchung benötigt, erhält sie über den passenden Freigabeweg. Ein interner Incidentverteiler ist nicht automatisch für vollständige Kundenexporte berechtigt.",
+      "fact_refs": [],
+      "level": 3,
+      "parent_evidence_id": "D046-E01"
+    },
+    {
+      "id": "D046-E04",
+      "heading": "Unvollständige Übergabe erkennen",
+      "text": "Eine Übergabe kann formal vollständig aussehen und trotzdem keine überprüfbare Aussage zum betroffenen Auftrag enthalten. Der Satz Queue wieder grün beschreibt häufig nur einen aggregierten Monitor. Er benennt weder den zuvor blockierten Job noch dessen Ausgabedatei. Die übernehmende Person fragt deshalb nach dem konkreten Zustandswechsel und dem Zeitpunkt der letzten Prüfung.\n\nDie Zuständigkeit für Worker und Quelldaten kann bei verschiedenen Teams liegen. Ein erreichbarer Worker beweist nicht, dass der Auftrag auf seine Quelle zugreifen kann. Umgekehrt sagt eine vorhandene Quelldatei nichts darüber aus, ob der nächste Worker die richtige Mandantenzuordnung besitzt. Beide Bedingungen werden getrennt dokumentiert.\n\nIm Übergabeprotokoll stehen Referenzen auf die notwendigen Nachweise. Vollständige Messwertdateien gehören nicht in den allgemeinen Schichtbericht. Wenn eine tiefere Untersuchung erforderlich ist, wird ihr Zugriff gesondert organisiert, statt den Verteiler der Übergabe pauschal zu erweitern.",
+      "fact_refs": []
+    },
+    {
+      "id": "D046-E05",
+      "heading": "Abweichungen nach einer Wiederaufnahme",
+      "text": "Nach einem Neustart können neue Aufträge bereits durchlaufen, während ein älterer Auftrag unverändert wartet. Ebenso kann eine Ausgabedatei vorhanden sein, deren Abschluss noch nicht in der Datenbank steht. Diese Zustände dürfen nicht mit demselben Reparaturschritt behandelt werden. Die Übergabe beschreibt, welche Beobachtung zur gewählten Maßnahme geführt hat.\n\nWurde ein vorhandenes Objekt wieder zugeordnet, wird dessen Jobmanifest geprüft. Wurde Arbeit fortgesetzt, wird der neue Fortschritt am betroffenen Auftrag beobachtet. Ein neu erzeugtes Objekt benötigt ebenfalls eine eindeutige Zuordnung. Eine passende Dateiendung oder eine ähnliche Zeilenzahl reicht dafür nicht aus.\n\nDie folgende Schicht erhält offene Unsicherheiten ausdrücklich. Eine nicht überprüfte Annahme wird nicht durch einen abgeschlossenen Chatthread zum bestätigten Befund. Der Abschluss der Kommunikation und der Abschluss des technischen Vorgangs sind unterschiedliche Ereignisse.",
+      "fact_refs": []
+    }
+  ]
+}

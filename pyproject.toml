@@ -1,0 +1,44 @@
+[project]
+name = "rag-python-lab"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14,<3.15"
+dependencies = [
+  "beautifulsoup4>=4.15.0",
+  "chromadb>=1.5.9",
+  "openai>=3.37.0",
+  "pydantic-ai>=2.63.0",
+  "pypdf>=6.21.2",
+  "python-docx>=1.2.0",
+  "python-dotenv>=1.2.4",
+  "rank-bm25>=0.2.2",
+  "scikit-learn>=1.9.1",
+  "sentence-transformers>=6.2.0",
+  "tiktoken>=0.14.0",
+]
+
+[tool.ruff]
+line-length = 88
+indent-width = 4
+
+[tool.ruff.lint]
+select = [
+  "E4", # pycodestyle: Import- und Einrückungsfehler
+  "E7", # pycodestyle: Syntax- und Formatierungsfehler
+  "E9", # pycodestyle: Laufzeitnahe Syntaxfehler
+  "F",  # Pyflakes: Ungenutzte Imports, Variablen etc.
+  "I",  # isort: Imports automatisch sortieren
+  "N",  # pep8-naming: Namenskonventionen
+  # "B",  # flake8-bugbear: Häufige Programmierfehler
+  # "UP", # pyupgrade: Modernes Python
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Dateinamen wie 01_dense_baseline.py erlauben
+"[0-9]*.py" = ["N999"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"

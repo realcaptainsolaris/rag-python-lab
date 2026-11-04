@@ -1,0 +1,28 @@
+test_acl_is_not_a_role_hierarchy (test_corpus.CorpusTests.test_acl_is_not_a_role_hierarchy) ... ok
+test_all_questions_reviewed_and_expected_distribution (test_corpus.CorpusTests.test_all_questions_reviewed_and_expected_distribution) ... ok
+test_canonical_drift_is_rejected (test_corpus.CorpusTests.test_canonical_drift_is_rejected) ... ok
+test_clarify_and_no_answer_are_not_interchangeable (test_corpus.CorpusTests.test_clarify_and_no_answer_are_not_interchangeable) ... ok
+test_clarify_can_retain_known_generation (test_corpus.CorpusTests.test_clarify_can_retain_known_generation) ... ok
+test_clarify_cannot_become_a_normal_answer (test_corpus.CorpusTests.test_clarify_cannot_become_a_normal_answer) ... ok
+test_complete_manifest (test_corpus.CorpusTests.test_complete_manifest) ... ok
+test_deny_requires_inaccessible_evidence (test_corpus.CorpusTests.test_deny_requires_inaccessible_evidence) ... ok
+test_dotted_event_key_resolution (test_corpus.CorpusTests.test_dotted_event_key_resolution) ... ok
+test_duplicate_document_guard (test_corpus.CorpusTests.test_duplicate_document_guard) ... ok
+test_evidence_references_fail_semantic_check (test_corpus.CorpusTests.test_evidence_references_fail_semantic_check) ... ok
+test_fixture_markers_required_in_metadata (test_corpus.CorpusTests.test_fixture_markers_required_in_metadata) ... ok
+test_full_validation (test_corpus.CorpusTests.test_full_validation) ... ok
+test_known_meta_phrases_rejected (test_corpus.CorpusTests.test_known_meta_phrases_rejected) ... ok
+test_meta_check_applies_to_emitted_content (test_corpus.CorpusTests.test_meta_check_applies_to_emitted_content) ... ok
+test_missing_evidence_is_rejected (test_corpus.CorpusTests.test_missing_evidence_is_rejected) ... ok
+test_no_answer_cannot_gain_positive_evidence (test_corpus.CorpusTests.test_no_answer_cannot_gain_positive_evidence) ... ok
+test_no_answer_positive_evidence_fails_semantic_check (test_corpus.CorpusTests.test_no_answer_positive_evidence_fails_semantic_check) ... ok
+test_only_four_behaviors_are_valid (test_corpus.CorpusTests.test_only_four_behaviors_are_valid) ... ok
+test_overlap_between_splits_is_rejected (test_corpus.CorpusTests.test_overlap_between_splits_is_rejected) ... ok
+test_release_build_is_byte_reproducible (test_corpus.CorpusTests.test_release_build_is_byte_reproducible) ... ok
+test_splits_are_disjoint_and_complete (test_corpus.CorpusTests.test_splits_are_disjoint_and_complete) ... ok
+test_unknown_feature_is_rejected (test_corpus.CorpusTests.test_unknown_feature_is_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 23 tests in 1.071s
+
+OK

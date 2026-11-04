@@ -1,0 +1,51 @@
+{
+  "id": "D030",
+  "title": "Billing period FAQ",
+  "product": "orbit",
+  "version": "3.0",
+  "language": "en",
+  "access": "PUBLIC",
+  "document_type": "faq",
+  "status": "current",
+  "topics": [
+    "billing"
+  ],
+  "rag_features": [
+    "unanswerable"
+  ],
+  "format": "md",
+  "organization": null,
+  "team": null,
+  "required_roles": [],
+  "authority": "official",
+  "synthetic": true,
+  "published_at": "2026-02-10",
+  "sections": [
+    {
+      "id": "D030-E01",
+      "heading": "When is usage billed?",
+      "text": "The billing cycle is a {{billing.cycle}}. Invoices are issued on day {{billing.invoice_day}} of the following month in {{billing.currency}}. Usage is based on the {{billing.usage_basis}}. An observation count is not the billing device count, and a temporarily disconnected registered device still appears in the inventory.\n\nTo reconcile a monthly invoice, compare the daily inventory peaks with the organisation record. Summing the daily peaks would answer a different question from finding each day's peak. Keep the calculation basis visible in an internal report rather than labeling every quantity as usage.",
+      "fact_refs": [
+        "billing.cycle",
+        "billing.invoice_day",
+        "billing.currency",
+        "billing.usage_basis"
+      ]
+    },
+    {
+      "id": "D030-E02",
+      "heading": "When does a plan change apply?",
+      "text": "A plan change applies on the {{billing.plan_change}}. Downloadable invoice records remain available for {{billing.download_months}} months. Changing a plan does not rewrite invoices already issued for an earlier period.\n\nRecord the effective date rather than relying only on the time an administrator clicked the change. A request just before midnight UTC can be displayed on a different local date. Local business hours do not change the billing boundary.",
+      "fact_refs": [
+        "billing.plan_change",
+        "billing.download_months"
+      ]
+    },
+    {
+      "id": "D030-E03",
+      "heading": "What does this page cover?",
+      "text": "This page explains period boundaries and usage attribution. The organisation billing contact handles account-specific questions. A plan capacity table describes device limits and retention, not a binding quotation for a particular customer.\n\nWhen forwarding an invoice question, include the invoice identifier, organisation and period. Do not attach credentials or a full measurement export. A question about a device count can usually be investigated from inventory history without sending measurement contents to the billing contact.",
+      "fact_refs": []
+    }
+  ]
+}

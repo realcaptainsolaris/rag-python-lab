@@ -1,0 +1,49 @@
+{
+  "id": "D021",
+  "title": "Timestamp validation",
+  "product": "orbit",
+  "version": "3.0",
+  "language": "en",
+  "access": "PUBLIC",
+  "document_type": "guide",
+  "status": "current",
+  "topics": [
+    "timestamp"
+  ],
+  "rag_features": [
+    "exact_identifier",
+    "paraphrase"
+  ],
+  "format": "md",
+  "organization": null,
+  "team": null,
+  "required_roles": [],
+  "authority": "official",
+  "synthetic": true,
+  "published_at": "2026-02-10",
+  "sections": [
+    {
+      "id": "D021-E01",
+      "heading": "Accepted timestamps",
+      "text": "Measurement timestamps use {{measurements.timestamp_format}}. The service accepts at most {{measurements.max_future_seconds}} seconds of future skew relative to the server clock. A local timestamp without an offset does not establish which instant the sender intended. Convert local device time at the integration boundary and preserve the original clock reading in a separate diagnostic log.\n\nA sample can fail even when its JSON representation is valid. The timestamp must also fall within the workspace retention policy. A connection restored after a long outage can therefore submit structurally valid measurements that are already too old to retain.",
+      "fact_refs": [
+        "measurements.timestamp_format",
+        "measurements.max_future_seconds"
+      ]
+    },
+    {
+      "id": "D021-E02",
+      "heading": "DATA-422 repair",
+      "text": "DATA-422 means {{errors.DATA-422}}. Do not replace an old measurement timestamp with the current time just to make it acceptable. That changes the event being recorded and can trigger alerts as if the physical reading happened now.\n\nCheck the workspace retention setting, the sender clock and the queued sample age. If the reading is genuinely outside the accepted history, retain it in the source archive according to your own policy. If the device clock was wrong, correct the clock and determine whether historical correction is justified before resubmitting.",
+      "fact_refs": [
+        "errors.DATA-422"
+      ]
+    },
+    {
+      "id": "D021-E03",
+      "heading": "Offset examples",
+      "text": "These strings identify the same instant: 2026-03-10T12:00:00Z and 2026-03-10T13:00:00+01:00. The service compares instants, not the displayed hour. A report that groups by local calendar day must make its timezone choice explicit after retrieval.\n\nAn agent restart can reset a device clock without resetting the application server clock. Compare device time, sender time and server receipt time separately. Keep the distinction when an incident crosses a daylight-saving transition. A timezone formatting change does not repair a physically incorrect clock.",
+      "fact_refs": []
+    }
+  ]
+}

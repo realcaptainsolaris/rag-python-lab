@@ -1,0 +1,41 @@
+{
+  "access": [
+    "PUBLIC",
+    "CUSTOMER",
+    "INTERNAL",
+    "RESTRICTED"
+  ],
+  "languages": [
+    "en",
+    "de"
+  ],
+  "features": [
+    "exact_fact",
+    "exact_identifier",
+    "paraphrase",
+    "version_conflict",
+    "chunk_boundary",
+    "multi_evidence",
+    "table_lookup",
+    "multilingual",
+    "conflict_resolution",
+    "unanswerable",
+    "acl",
+    "prompt_injection",
+    "document_update",
+    "deletion"
+  ],
+  "categories": [
+    "exact_fact",
+    "paraphrase",
+    "exact_identifier",
+    "version_specific",
+    "multilingual",
+    "multi_evidence",
+    "table_lookup",
+    "ambiguous",
+    "unanswerable",
+    "access_restricted",
+    "conflict_resolution"
+  ]
+}

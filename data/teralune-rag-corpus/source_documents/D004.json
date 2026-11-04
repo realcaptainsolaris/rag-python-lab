@@ -1,0 +1,43 @@
+{
+  "id": "D004",
+  "title": "Webhook Delivery in Orbit 2.4",
+  "product": "orbit",
+  "version": "2.4",
+  "language": "en",
+  "access": "PUBLIC",
+  "document_type": "legacy",
+  "status": "historical",
+  "topics": [
+    "webhook"
+  ],
+  "rag_features": [
+    "version_conflict",
+    "exact_fact"
+  ],
+  "format": "md",
+  "sections": [
+    {
+      "id": "D004-E01",
+      "heading": "Previous delivery window",
+      "text": "This archived contract applies to Orbit 2.4. Retryable webhook deliveries continue for {{versions.2.4.webhook_retry_hours}} hours. Do not apply this deadline to Orbit 3.0. The API prefix for this generation is {{versions.2.4.api_prefix}}. The archive is retained so maintainers can reproduce behavior of installations that have not migrated.\n\nWhen reviewing an old incident, identify the deployed product generation before comparing a delivery age to the deadline. A support ticket opened recently can still describe an older installation. The date of the ticket is not evidence that the sender runs the current version. Record the deployed generation in the incident timeline.",
+      "fact_refs": [
+        "versions.2.4.webhook_retry_hours",
+        "versions.2.4.api_prefix"
+      ]
+    },
+    {
+      "id": "D004-E02",
+      "heading": "Legacy service accounts",
+      "text": "The access-token lifetime in Orbit 2.4 is {{versions.2.4.access_token_minutes}} minutes. A new client that assumes the same lifetime in Orbit 3.0 may continue using an expired token. Prefer reading the token response lifetime to embedding the historical value in application code.\n\nArchive copies are not change announcements. Use the migration guide when planning a cutover and use this contract only when the target installation is explicitly Orbit 2.4. Do not silently redirect a versioned API client to a different prefix.",
+      "fact_refs": [
+        "versions.2.4.access_token_minutes"
+      ]
+    }
+  ],
+  "organization": null,
+  "team": null,
+  "required_roles": [],
+  "authority": "official",
+  "synthetic": true,
+  "published_at": "2024-06-18"
+}

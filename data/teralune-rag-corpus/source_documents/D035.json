@@ -1,0 +1,62 @@
+{
+  "id": "D035",
+  "title": "Doppelte Zustellung im Kundenfall",
+  "product": "orbit",
+  "version": "3.0",
+  "language": "de",
+  "access": "CUSTOMER",
+  "document_type": "support_case",
+  "status": "current",
+  "topics": [
+    "export"
+  ],
+  "rag_features": [
+    "paraphrase",
+    "acl",
+    "multi_evidence"
+  ],
+  "format": "md",
+  "organization": "org-amber",
+  "team": null,
+  "required_roles": [],
+  "authority": "official",
+  "synthetic": true,
+  "published_at": "2026-02-10",
+  "sections": [
+    {
+      "id": "D035-E01",
+      "heading": "Fall und Beobachtung",
+      "text": "Im Fall {{samples.support_duplicate}} meldete org-amber doppelte Folgeaktionen nach einem Empfängerneustart. Die eingehenden Anfragen hatten dieselbe Delivery-ID, die Anwendung erzeugte jedoch zwei Arbeitsaufträge. Der Absender hatte nach einem Verbindungsabbruch erneut zugestellt. Das war mit dem Zustellvertrag vereinbar.\n\nDie erste lokale Transaktion war abgeschlossen, ihre HTTP-Bestätigung hatte den Absender aber nicht erreicht. Beim Neustart ging die nur im Prozessspeicher geführte Liste bearbeiteter Kennungen verloren. Ein bloßer Vergleich der Anzahl von HTTP-Anfragen hätte diesen Ablauf nicht von zwei unterschiedlichen Ereignissen unterschieden.",
+      "fact_refs": [
+        "samples.support_duplicate"
+      ]
+    },
+    {
+      "id": "D035-E02",
+      "heading": "Korrektur im Empfänger",
+      "text": "Die Anwendung speichert die Kennung aus {{webhooks.id_header}} nun in derselben Datenbanktransaktion wie die Folgeaktion. Die Aufbewahrung beträgt {{webhooks.idempotency_hours}} Stunden. Eine Eindeutigkeitsprüfung verhindert eine zweite Aktion für dieselbe Subscription und Delivery-ID.\n\nDer Betreiber prüfte anschließend den Ablauf nach einem Prozessneustart und bei einer unterbrochenen Bestätigung. Ein erfolgreicher Ablauf ohne Neustart war zuvor irreführend, weil der flüchtige Speicher innerhalb dieses einen Prozesses ausreichend erschien. Die Korrektur änderte weder Tokenlaufzeiten noch die serverseitige Wiederholungsfrist.",
+      "fact_refs": [
+        "webhooks.id_header",
+        "webhooks.idempotency_hours"
+      ]
+    },
+    {
+      "id": "D035-E03",
+      "heading": "Abgrenzung des Falls",
+      "text": "Der Fall betrifft wiederholte Zustellversuche derselben Delivery-ID. Zwei unterschiedliche Ereignisse mit gleichem Messwert müssen weiterhin unabhängig verarbeitet werden können. Ein Deduplizierungsschlüssel allein aus Zeitstempel und Wert könnte gültige Beobachtungen zusammenfassen.\n\nIm Abschlussprotokoll stehen die betroffene Subscription, die Empfängerversion und die Kennungen der beiden Versuche. Signaturschlüssel und vollständige Messdaten wurden nicht in den breit verteilten Fallbericht aufgenommen.",
+      "fact_refs": []
+    },
+    {
+      "id": "D035-E04",
+      "heading": "Warum ein kurzer Neustarttest nicht genügte",
+      "text": "Der erste Empfängertest lief vollständig innerhalb desselben Prozesses. Die Anwendung erkannte die wiederholte Kennung in ihrem Speicher und legte keine zweite Aktion an. Das Team hielt damit die Deduplizierung zunächst für geprüft. Erst nach dem Neustart war die Kennungsliste leer, obwohl die fachliche Aktion bereits in der Datenbank existierte.\n\nDie nachträgliche Untersuchung verglich deshalb die Speichergrenze mit der Transaktionsgrenze. Die fachliche Aktion war dauerhaft, die Information über ihre bereits bearbeitete Zustellung jedoch flüchtig. Eine erneute Zustellung konnte diese beiden Zustände nicht mehr zusammenführen. Der Fehler lag nicht in der Anzahl eingehender Netzwerkrequests, sondern in der fehlenden dauerhaften Zuordnung.\n\nBei der Korrektur blieb die ursprüngliche Ereignisidentität erhalten. Das Team führte keine neue Zeitstempelregel ein und änderte keine Gerätekennung. So konnten die vorhandenen Aktionen mit ihren Zustellungen abgeglichen werden, statt eine zweite Identitätskonvention neben die erste zu stellen.",
+      "fact_refs": []
+    },
+    {
+      "id": "D035-E05",
+      "heading": "Nachweis der Korrektur",
+      "text": "Der Fallabschluss dokumentiert den Zustand vor dem Prozessstop, den Wiederanlauf und die Beobachtung einer erneuten Zustellung. Zu jeder Beobachtung wurde die lokale Aktion referenziert. Ein einzelner Logeintrag mit dem Wort Duplikat hätte nicht gezeigt, ob die erste Aktion tatsächlich dauerhaft angelegt war.\n\nDas Team prüfte außerdem zwei verschiedene Ereignisse mit gleichem sichtbarem Messwert. Diese sollten weiterhin zu getrennten fachlichen Aktionen führen, sofern die Anwendung beide benötigt. Die neue Eindeutigkeitsregel durfte nicht jedes ähnlich aussehende Ereignis zusammenfassen. Die Zustellidentität und die Bedeutung des Messwerts blieben unterschiedliche Dinge.\n\nDie abschließende Nachricht an den Betreiber beschrieb die korrigierte Persistenz und die geprüften Abläufe. Sie enthielt keine Secrets und kein vollständiges Nachrichtenarchiv. Für eine spätere Analyse bleiben die relevanten Referenzen im organisationsgebundenen Fallrecord erhalten.",
+      "fact_refs": []
+    }
+  ]
+}

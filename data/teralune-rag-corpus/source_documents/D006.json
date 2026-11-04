@@ -1,0 +1,46 @@
+{
+  "id": "D006",
+  "title": "Authentication Error Catalogue",
+  "product": "orbit",
+  "version": "3.0",
+  "language": "en",
+  "access": "PUBLIC",
+  "document_type": "reference",
+  "status": "current",
+  "topics": [
+    "authentication"
+  ],
+  "rag_features": [
+    "exact_identifier",
+    "table_lookup"
+  ],
+  "format": "html",
+  "sections": [
+    {
+      "id": "D006-E01",
+      "heading": "Error identifiers",
+      "text": "AUTH-104 means {{errors.AUTH-104}}. AUTH-140 means {{errors.AUTH-140}}. AUTH-141 means {{errors.AUTH-141}}. The similar identifiers describe different decisions. Reissuing an otherwise identical token can resolve expiry but cannot add a missing scope or move the credential to another workspace.\n\nUse the request identifier when reporting an error. The numeric suffix is not a severity score and must not be compared numerically. A user interface that displays only authentication failed discards the distinction needed to repair the request.",
+      "fact_refs": [
+        "errors.AUTH-104",
+        "errors.AUTH-140",
+        "errors.AUTH-141"
+      ]
+    },
+    {
+      "id": "D006-E02",
+      "heading": "Other failures",
+      "text": "RATE-201 means {{errors.RATE-201}}. HOOK-310 means {{errors.HOOK-310}}. DATA-422 means {{errors.DATA-422}}. An HTTP status is a broad category; the Orbit identifier names the product rule that failed. A request with an expired token can be rejected before any measurement validation occurs. Fixing one error can reveal a different validation error on the next attempt.\n\nDo not retry every 4xx response with the same payload. Record the identifier, workspace and timestamp, remove credentials from the log, and select a repair appropriate to the failed rule.",
+      "fact_refs": [
+        "errors.RATE-201",
+        "errors.HOOK-310",
+        "errors.DATA-422"
+      ]
+    }
+  ],
+  "organization": null,
+  "team": null,
+  "required_roles": [],
+  "authority": "official",
+  "synthetic": true,
+  "published_at": "2026-02-10"
+}

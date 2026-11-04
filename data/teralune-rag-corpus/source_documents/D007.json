@@ -1,0 +1,70 @@
+{
+  "id": "D007",
+  "title": "Plan Limits",
+  "product": "orbit",
+  "version": "3.0",
+  "language": "en",
+  "access": "PUBLIC",
+  "document_type": "pricing_reference",
+  "status": "current",
+  "topics": [
+    "plan"
+  ],
+  "rag_features": [
+    "table_lookup",
+    "exact_fact"
+  ],
+  "format": "csv",
+  "sections": [
+    {
+      "id": "D007-E01",
+      "heading": "Published plan limits",
+      "text": "Limits apply per organisation unless the column explicitly says otherwise. Workspace request budgets are documented separately from plan capacities. The values below describe Orbit 3.0; there is no inference about historical contracts. Retention is the configured policy for newly provisioned plan workspaces.",
+      "fact_refs": [
+        "plans.Starter.devices",
+        "plans.Starter.retention_days",
+        "plans.Starter.workspaces",
+        "plans.Team.devices",
+        "plans.Team.retention_days",
+        "plans.Team.workspaces",
+        "plans.Enterprise.devices",
+        "plans.Enterprise.retention_days",
+        "plans.Enterprise.workspaces"
+      ],
+      "table": {
+        "headers": [
+          "plan",
+          "devices_per_organization",
+          "retention_days",
+          "workspaces_per_organization"
+        ],
+        "rows": [
+          [
+            "Starter",
+            "{{plans.Starter.devices}}",
+            "{{plans.Starter.retention_days}}",
+            "{{plans.Starter.workspaces}}"
+          ],
+          [
+            "Team",
+            "{{plans.Team.devices}}",
+            "{{plans.Team.retention_days}}",
+            "{{plans.Team.workspaces}}"
+          ],
+          [
+            "Enterprise",
+            "{{plans.Enterprise.devices}}",
+            "{{plans.Enterprise.retention_days}}",
+            "{{plans.Enterprise.workspaces}}"
+          ]
+        ]
+      }
+    }
+  ],
+  "organization": null,
+  "team": null,
+  "required_roles": [],
+  "authority": "official",
+  "synthetic": true,
+  "published_at": "2026-02-10"
+}

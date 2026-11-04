@@ -1,0 +1,50 @@
+{
+  "id": "D034",
+  "title": "Deprecated integrations",
+  "product": "orbit",
+  "version": "2.4",
+  "language": "en",
+  "access": "PUBLIC",
+  "document_type": "reference",
+  "status": "historical",
+  "topics": [
+    "deprecated"
+  ],
+  "rag_features": [
+    "conflict_resolution",
+    "version_conflict",
+    "exact_identifier"
+  ],
+  "format": "md",
+  "organization": null,
+  "team": null,
+  "required_roles": [],
+  "authority": "archived",
+  "synthetic": true,
+  "published_at": "2024-06-18",
+  "sections": [
+    {
+      "id": "D034-E01",
+      "heading": "Connector transition notice",
+      "text": "The Orbit 2.4 connector {{legacy.v2_connector}} reaches the end of its transition period on {{legacy.connector_end_date}}. Orbit 3.0 deployments use {{legacy.v3_connector}}. This notice applies to the old connector and does not redefine the authentication contract of the service.\n\nInventory the connector package and its actual target prefix before a migration. A process called orbit-stream that still points at an archived service is not necessarily running the current contract. Preserve the effective configuration in the deployment inventory.",
+      "fact_refs": [
+        "legacy.v2_connector",
+        "legacy.connector_end_date",
+        "legacy.v3_connector"
+      ]
+    },
+    {
+      "id": "D034-E02",
+      "heading": "Archived worker note",
+      "text": "The deployment note retained with the old connector says that OAuth tokens last 120 minutes and the workspace budget is 500 requests per minute. These settings describe its 2.4 target. A later package installation does not make these settings a current 3.0 reference.\n\nBefore changing cache timers, obtain the target version from the service configuration. Keep the archived note with the previous deployment so maintainers can reconstruct an incident. Do not replace it in place with current settings and erase the history.",
+      "fact_refs": []
+    },
+    {
+      "id": "D034-E03",
+      "heading": "Review before replacement",
+      "text": "Move one integration first and compare accepted observations and receiver actions. A total request counter can rise because the new connector retries differently even when the number of unique actions remains unchanged.\n\nAfter a successful cutover, disable the old connector scheduler before retiring its credential. Two independent schedulers reading the same source can submit the same physical reading through different client paths. The resulting duplicates cannot be diagnosed from a credential label alone.",
+      "fact_refs": []
+    }
+  ],
+  "fixture_notes": "Historical connector note: 120 minutes and 500 requests are correct for 2.4, not a current 3.0 contract."
+}

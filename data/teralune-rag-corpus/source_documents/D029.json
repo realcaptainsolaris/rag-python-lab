@@ -1,0 +1,52 @@
+{
+  "id": "D029",
+  "title": "Team administration",
+  "product": "orbit",
+  "version": "3.0",
+  "language": "en",
+  "access": "PUBLIC",
+  "document_type": "guide",
+  "status": "current",
+  "topics": [
+    "team"
+  ],
+  "rag_features": [
+    "acl",
+    "multi_evidence"
+  ],
+  "format": "md",
+  "organization": null,
+  "team": null,
+  "required_roles": [],
+  "authority": "official",
+  "synthetic": true,
+  "published_at": "2026-02-10",
+  "sections": [
+    {
+      "id": "D029-E01",
+      "heading": "Invitations and ownership",
+      "text": "A team invitation expires after {{teams.invite_hours}} hours. A workspace permits at most {{teams.max_teams_per_workspace}} teams. Sending another invitation does not grant temporary access before it is accepted. Review the intended workspace and recipient identity before creating an invitation, especially when a person belongs to several organisations.\n\nA team is a workspace object. Reusing the same visible team name in another workspace does not make the memberships identical. Keep the workspace identifier with the team identifier in an administration log. A screenshot containing only a team name is insufficient evidence that a user was assigned to the correct workspace.",
+      "fact_refs": [
+        "teams.invite_hours",
+        "teams.max_teams_per_workspace"
+      ]
+    },
+    {
+      "id": "D029-E02",
+      "heading": "Changing a role",
+      "text": "Team administration requires {{teams.scope}}. A role change takes effect on the {{teams.role_change_effect}}. A previously generated export file is not recalled by changing the role that created it. Downstream copies require their own handling.\n\nAn application should recheck access when serving a cached response rather than relying on the role recorded when the response was cached. An administrative view can show the most recent membership state while a separate client still holds an older local display. Treat the service authorization outcome as authoritative for the next request.",
+      "fact_refs": [
+        "teams.scope",
+        "teams.role_change_effect"
+      ]
+    },
+    {
+      "id": "D029-E03",
+      "heading": "Last administrator safeguard",
+      "text": "Removing the last workspace administrator is {{teams.last_admin_removal}}. Assign another administrator and verify that the assignment succeeded before removing the previous one. A pending invitation does not count as an accepted administrator assignment.\n\nThe safeguard protects workspace administration only. It does not make an administrator a member of the internal Operations or Security team. Product roles do not expand access to company runbooks or another customer organisation. Use the appropriate access process for those records.",
+      "fact_refs": [
+        "teams.last_admin_removal"
+      ]
+    }
+  ]
+}

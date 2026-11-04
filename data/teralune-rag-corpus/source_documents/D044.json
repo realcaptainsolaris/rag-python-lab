@@ -1,0 +1,49 @@
+{
+  "id": "D044",
+  "title": "Doppelte Meldungen",
+  "product": "orbit",
+  "version": "3.0",
+  "language": "de",
+  "access": "CUSTOMER",
+  "document_type": "support_case",
+  "status": "current",
+  "topics": [
+    "doppelte"
+  ],
+  "rag_features": [
+    "paraphrase",
+    "acl",
+    "multi_evidence"
+  ],
+  "format": "md",
+  "organization": "org-amber",
+  "team": null,
+  "required_roles": [],
+  "authority": "official",
+  "synthetic": true,
+  "published_at": "2026-02-10",
+  "sections": [
+    {
+      "id": "D044-E01",
+      "heading": "Zwei fachlich gleiche Meldungen",
+      "text": "Fall {{samples.support_replay}} betrifft org-amber. Ein Wartungsfenster endete, während die lokale Anwendung noch ältere Meldungen abarbeitete. Zwei Einträge besaßen denselben Messwert und denselben Gerätenamen, aber unterschiedliche Delivery-IDs. Der erste Reparaturvorschlag wollte alle Einträge mit gleichem Zeitstempel und Wert zusammenfassen.\n\nDas hätte gültige Ereignisse zusammenführen können. Die Untersuchung unterschied deshalb zunächst eine erneute Zustellung desselben Ereignisses von zwei unterschiedlichen Ereignissen mit ähnlichem Inhalt. Ein Vergleich der sichtbaren Meldungstexte allein reichte dafür nicht aus.",
+      "fact_refs": [
+        "samples.support_replay"
+      ]
+    },
+    {
+      "id": "D044-E02",
+      "heading": "Korrektur der Zuordnung",
+      "text": "Die Delivery-ID aus {{webhooks.id_header}} bleibt der Schlüssel zur Zustellung. Zusätzlich prüft die Anwendung den Alertzustand, bevor eine alte Öffnungsmeldung einen lokalen Arbeitsauftrag reaktiviert. Ein späteres alert.resolved kann den fachlichen Zustand bereits verändert haben.\n\nDie Reparatur betraf die Reihenfolge der fachlichen Auswertung, nicht die Signaturprüfung. Beide Zustellungen waren korrekt signiert. Das Team behielt die Ereigniskennungen und den Zustandswechsel im Fallrecord, damit ein späterer Vergleich die verschiedenen Ursachen nicht wieder zu einem allgemeinen Duplikatproblem zusammenfasst.",
+      "fact_refs": [
+        "webhooks.id_header"
+      ]
+    },
+    {
+      "id": "D044-E03",
+      "heading": "Fallabschluss",
+      "text": "Der Betreiber beobachtete nach der Änderung sowohl eine echte Wiederholung derselben Delivery-ID als auch zwei verschiedene Ereignisse mit ähnlichen Werten. Nur im ersten Fall sollte die bestehende lokale Aktion wiederverwendet werden.\n\nEine Verarbeitungsgarantie für fachlich ähnliche Nachrichten kann nicht aus einem HTTP-Status abgeleitet werden. Der Status bestätigt die Annahme einer Zustellung; die Entscheidung über lokale Aufgaben benötigt zusätzlich den aktuellen fachlichen Zustand.",
+      "fact_refs": []
+    }
+  ]
+}

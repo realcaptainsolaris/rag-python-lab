@@ -1,0 +1,41 @@
+{
+  "id": "D009",
+  "title": "Export Queue Runbook",
+  "product": "orbit",
+  "version": "3.0",
+  "language": "de",
+  "access": "INTERNAL",
+  "document_type": "runbook",
+  "status": "current",
+  "topics": [
+    "export"
+  ],
+  "rag_features": [
+    "acl",
+    "exact_fact"
+  ],
+  "format": "md",
+  "sections": [
+    {
+      "id": "D009-E01",
+      "heading": "Alarm bewerten",
+      "text": "Dieses Runbook gilt für das interne Betriebsteam. Ab einer Wartezeit von {{operations.queue_warning_minutes}} Minuten wird die Exportwarteschlange geprüft. Ab {{operations.queue_escalation_minutes}} Minuten wird an die Bereitschaft eskaliert. Die Wartezeit bezeichnet das Alter des ältesten noch nicht gestarteten Auftrags. Die Laufzeit eines bereits gestarteten Exports gehört nicht zu dieser Kennzahl.\n\nZuerst das Alter und die Anzahl wartender Aufträge getrennt prüfen. Eine kleine Warteschlange mit einem sehr alten Auftrag kann auf einen blockierten Mandanten hinweisen. Eine große Warteschlange mit jungen Aufträgen kann dagegen kurzfristig normal sein. Vor einem Neustart die Zustände queued und running sowie die letzte Worker-Aktivität sichern.",
+      "fact_refs": [
+        "operations.queue_warning_minutes",
+        "operations.queue_escalation_minutes"
+      ]
+    },
+    {
+      "id": "D009-E02",
+      "heading": "Sicher wiederaufnehmen",
+      "text": "Keine Aufträge pauschal aus der Datenbank entfernen. Zuerst die betroffenen Workspaces eingrenzen und prüfen, ob ein Worker noch einen Lease hält. Ein Neustart ohne Zustandsabgleich kann denselben Export zweimal starten. Im Incident-Protokoll nur Auftragskennungen und Zeitpunkte erfassen. Die Inhalte des Exports gehören nicht in das Betriebsprotokoll.\n\nNach einer Wiederaufnahme den ältesten Auftrag und einen neu eingegangenen Auftrag beobachten. Eine sinkende Gesamtzahl allein belegt nicht, dass der zuvor blockierte Auftrag verarbeitet wurde. Bei unklarem Zustand an Engineering eskalieren und die Wiederaufnahme nicht durch eine zweite manuelle Aktion überlagern.",
+      "fact_refs": []
+    }
+  ],
+  "organization": null,
+  "team": "operations",
+  "required_roles": [],
+  "authority": "official",
+  "synthetic": true,
+  "published_at": "2026-02-10"
+}

@@ -1,0 +1,63 @@
+{
+  "id": "D028",
+  "title": "Integration deployment",
+  "product": "orbit",
+  "version": "3.0",
+  "language": "en",
+  "access": "PUBLIC",
+  "document_type": "guide",
+  "status": "current",
+  "topics": [
+    "integration"
+  ],
+  "rag_features": [
+    "multi_evidence",
+    "chunk_boundary"
+  ],
+  "format": "md",
+  "organization": null,
+  "team": null,
+  "required_roles": [],
+  "authority": "official",
+  "synthetic": true,
+  "published_at": "2026-02-10",
+  "sections": [
+    {
+      "id": "D028-E01",
+      "heading": "Separate workspace configuration",
+      "text": "Set {{integration.example_config_key}} explicitly for every deployed sender. Use at most {{integration.recommended_inflight_requests}} in-flight requests as the initial integration configuration. This is a deployment recommendation, not a replacement for the published workspace request limit.\n\nA credential and a workspace identifier should be deployed as one reviewed configuration change. Changing only the workspace name in a dashboard does not retarget a sender. Check configuration precedence: an environment variable can override the configuration file that an operator edited. Keep the nonsecret effective workspace visible during startup.\n\nDeployment order:\n\n1. Record the effective workspace and client prefix.\n2. Deploy the credential with its reviewed scopes.\n3. Confirm one accepted write and one readback.\n4. Verify the receiver subscription independently.\n5. Advance the source checkpoint only from durable acceptance.",
+      "fact_refs": [
+        "integration.example_config_key",
+        "integration.recommended_inflight_requests"
+      ]
+    },
+    {
+      "id": "D028-E02",
+      "heading": "Checkpoint the accepted batch",
+      "text": "The checkpoint unit is the {{integration.checkpoint_unit}}. Persist a source offset only after the sender has durably recorded which items were accepted. If a batch contains rejected items, preserve those items for repair without rewinding every successful item.\n\nA process that commits its source offset before it records the response can lose observations on a crash. A process that never commits can resubmit indefinitely. Store request identity and source identity together so recovery can reconcile either side of a dropped connection.",
+      "fact_refs": [
+        "integration.checkpoint_unit"
+      ]
+    },
+    {
+      "id": "D028-E03",
+      "heading": "Reconnect and observe",
+      "text": "Use a reconnect backoff of {{integration.reconnect_backoff_seconds}} seconds as the initial setting for a disconnected sender. A persistent authorization error is not a connectivity outage and should not enter an endless reconnect loop.\n\nObserve accepted measurements separately from successful network connections. Add one readback using the intended workspace before enabling alerts or exports. During rollback restore both the credential assignment and target workspace. Rolling back a binary while leaving a newer workspace configuration can preserve the original problem.",
+      "fact_refs": [
+        "integration.reconnect_backoff_seconds"
+      ]
+    },
+    {
+      "id": "D028-E04",
+      "heading": "Configuration precedence review",
+      "text": "Before rollout, print a nonsecret effective configuration record from the running process. Include the workspace, API prefix, connector version and source checkpoint location. Do not print the credential value. Compare this record with the reviewed deployment configuration rather than assuming that a file on disk is what the process loaded.\n\nA container image, environment file and process supervisor can each provide a different value. If the process supervisor wins, editing the environment file alone will appear ineffective. Restarting an unrelated service can then produce a misleading temporary improvement by changing which sender is active. Trace the actual precedence before making another change.\n\nFor a staged rollout, keep the old and new configuration records with their activation times. When an incident crosses the cutover, a request log can be interpreted against the correct target. A single current configuration snapshot cannot reconstruct what an older worker used before it restarted.",
+      "fact_refs": []
+    },
+    {
+      "id": "D028-E05",
+      "heading": "Rollback and source reconciliation",
+      "text": "A rollback restores executable code and configuration, but it does not automatically undo accepted observations. Determine the last committed source checkpoint before starting an older sender. If it reads from a previous checkpoint, it may submit records that the new sender already delivered. If it starts too far ahead, accepted-response records that were not committed locally may be skipped.\n\nUse the source identity and durable acceptance record to reconcile the boundary. Avoid changing timestamps or inventing new device identifiers to get the replay accepted. Those changes create a different observation stream and make a later audit harder. A recovery action should preserve what happened at the source.\n\nAfter rollback, confirm one request in each direction required by the integration. A reader-only smoke request does not prove that the writer has its required scope. Similarly, a successful sender submission does not validate that the downstream receiver or export consumer is using the same workspace.",
+      "fact_refs": []
+    }
+  ]
+}

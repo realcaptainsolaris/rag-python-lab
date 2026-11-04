@@ -1,0 +1,48 @@
+{
+  "id": "D008",
+  "title": "Messwerte fehlen nach Schlüsselwechsel",
+  "product": "orbit",
+  "version": "3.0",
+  "language": "de",
+  "access": "CUSTOMER",
+  "document_type": "support_case",
+  "status": "current",
+  "topics": [
+    "messwerte"
+  ],
+  "rag_features": [
+    "paraphrase",
+    "multilingual",
+    "acl"
+  ],
+  "format": "md",
+  "sections": [
+    {
+      "id": "D008-E01",
+      "heading": "Meldung und Umgebung",
+      "text": "Fall TRAIN-208 betrifft die Organisation org-amber. Nach dem Austausch eines Zugangsschlüssels zeigte das Dashboard keine neuen Messwerte mehr. Die Geräte waren weiterhin registriert. Ein erneutes Anlegen der Geräte änderte nichts, weil die Ursache im schreibenden Integrationsprozess lag.\n\nDer Betreiber hatte einen Lesetest ausgeführt und daraus geschlossen, dass der neue Schlüssel vollständig funktionierte. Der Test bestätigte nur den Lesezugriff. Im Protokoll des Senders stand AUTH-140. Die Anfrage enthielt einen gültigen Zugangsnachweis, aber nicht die erforderliche Berechtigung zum Schreiben.",
+      "fact_refs": []
+    },
+    {
+      "id": "D008-E02",
+      "heading": "Ursache und Korrektur",
+      "text": "Für die Übermittlung von Messwerten ist der Scope {{auth.write_scope}} erforderlich. Der Ersatzschlüssel besaß nur {{auth.read_scope}}. Nach Ausstellung eines passend begrenzten Schlüssels wurden neue Messwerte wieder angenommen. Alte, nie erfolgreich eingegangene Messwerte wurden dadurch nicht automatisch nachgeliefert.\n\nBei einer vergleichbaren Störung zuerst die konkrete Fehlermeldung und den Workspace prüfen. Die Wiederholungsstrategie für Webhooks ist für einen abgewiesenen Schreibzugriff nicht zuständig. Ein längeres Warten hätte den Fehler nicht behoben.",
+      "fact_refs": [
+        "auth.write_scope",
+        "auth.read_scope"
+      ]
+    },
+    {
+      "id": "D008-E03",
+      "heading": "Abschlussprüfung",
+      "text": "Der Betreiber prüfte einen erfolgreichen Schreibzugriff mit einem neuen Zeitstempel und anschließend einen Lesezugriff auf denselben Datensatz. Erst danach wurde der alte Schlüssel widerrufen. Im Ticket verblieben nur die Anfragekennung und die Namen der Scopes. Zugangsschlüssel und Token wurden nicht aufgenommen.\n\nDer Fall ist abgeschlossen. Er ist ein Bericht über eine einzelne Konfiguration, keine Erweiterung des öffentlichen Authentifizierungsvertrags.",
+      "fact_refs": []
+    }
+  ],
+  "organization": "org-amber",
+  "team": null,
+  "required_roles": [],
+  "authority": "support",
+  "synthetic": true,
+  "published_at": "2026-02-10"
+}

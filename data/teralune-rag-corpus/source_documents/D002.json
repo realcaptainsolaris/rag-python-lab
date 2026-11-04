@@ -1,0 +1,56 @@
+{
+  "id": "D002",
+  "title": "OAuth and API Keys",
+  "product": "orbit",
+  "version": "3.0",
+  "language": "en",
+  "access": "PUBLIC",
+  "document_type": "reference",
+  "status": "current",
+  "topics": [
+    "oauth"
+  ],
+  "rag_features": [
+    "exact_fact",
+    "exact_identifier",
+    "multilingual"
+  ],
+  "format": "md",
+  "sections": [
+    {
+      "id": "D002-E01",
+      "heading": "Machine credentials",
+      "text": "Orbit supports OAuth2 {{auth.oauth_grant}} for service accounts and scoped API keys for small integrations. Obtain an access token at {{auth.token_endpoint}}. An Orbit 3.0 access token lasts {{versions.3.0.access_token_minutes}} minutes. API keys expire after {{auth.api_key_expiry_days}} days; they are not refresh tokens and cannot extend an OAuth session.\n\nChoose a service account for a process, not a shared human login. Store its credential in the deployment secret store and inject it at runtime. A key label should describe its owner and purpose, for example lab-reader. The label is not an authorization rule. Deleting a label in a local configuration file does not revoke the corresponding key on the platform.",
+      "fact_refs": [
+        "auth.oauth_grant",
+        "auth.token_endpoint",
+        "versions.3.0.access_token_minutes",
+        "auth.api_key_expiry_days"
+      ]
+    },
+    {
+      "id": "D002-E02",
+      "heading": "Claims and scopes",
+      "text": "The issuer is {{auth.issuer}}, the audience is {{auth.audience}}, and the accepted clock skew is {{auth.clock_skew_seconds}} seconds. Reading measurements requires {{auth.read_scope}}; submitting them requires {{auth.write_scope}}. A valid signature alone does not authorize an operation. The service also checks expiry, audience, workspace and scope.\n\n```http\nPOST /oauth/token\nContent-Type: application/x-www-form-urlencoded\n\ngrant_type=client_credentials&client_id=lab-reader&client_secret=<TRAINING_SECRET>\n```\n\nThe placeholder is intentionally unusable. Cache the returned token until shortly before expiry and replace it atomically so concurrent requests do not keep an expired token alive. Do not log the token body when diagnosing a claim error.",
+      "fact_refs": [
+        "auth.issuer",
+        "auth.audience",
+        "auth.clock_skew_seconds",
+        "auth.read_scope",
+        "auth.write_scope"
+      ]
+    },
+    {
+      "id": "D002-E03",
+      "heading": "Rotation without interruption",
+      "text": "Create the replacement credential with the minimum scopes required by the integration. Deploy it to a single sender, confirm a successful read or write, then roll out to the remaining senders. Revoke the old credential after confirming that it is no longer used. A successful read is insufficient proof that a writer has the correct permissions.\n\nIf an integration fails only after rotation, inspect the workspace and scope before changing retry settings. Blind retries with an invalid credential increase noise and cannot restore access. Use the error identifier rather than the HTTP status alone when opening a support case.",
+      "fact_refs": []
+    }
+  ],
+  "organization": null,
+  "team": null,
+  "required_roles": [],
+  "authority": "official",
+  "synthetic": true,
+  "published_at": "2026-02-10"
+}

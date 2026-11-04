@@ -1,0 +1,55 @@
+{
+  "id": "D033",
+  "title": "Orbit 3 release notes",
+  "product": "orbit",
+  "version": "3.0",
+  "language": "en",
+  "access": "PUBLIC",
+  "document_type": "release_notes",
+  "status": "current",
+  "topics": [
+    "orbit"
+  ],
+  "rag_features": [
+    "version_conflict",
+    "exact_identifier"
+  ],
+  "format": "md",
+  "organization": null,
+  "team": null,
+  "required_roles": [],
+  "authority": "official",
+  "synthetic": true,
+  "published_at": "2026-02-10",
+  "sections": [
+    {
+      "id": "D033-E01",
+      "heading": "Orbit 3.0 release",
+      "text": "Orbit 3.0 was released on {{versions.3.0.release_date}}. Its client prefix is {{versions.3.0.api_prefix}} and the measurement event is {{legacy.event_v3}}. The token lifetime is {{versions.3.0.access_token_minutes}} minutes. Clients that cache a 2.4 token for its old lifetime need to honor the expiry returned by the current token response.\n\nDeploy API and event changes as separate checks. A successful API read does not validate a receiver subscription, and a received notification does not validate the sender's export scope. Keep a written cutover record for each integration.",
+      "fact_refs": [
+        "versions.3.0.release_date",
+        "versions.3.0.api_prefix",
+        "legacy.event_v3",
+        "versions.3.0.access_token_minutes"
+      ]
+    },
+    {
+      "id": "D033-E02",
+      "heading": "New defaults",
+      "text": "The workspace budget is {{versions.3.0.rate_limit_per_minute}} requests per minute. The general provisioning retention default is {{versions.3.0.default_retention_days}} days; plan settings can override that default. The webhook retry window is {{versions.3.0.webhook_retry_hours}} hours.\n\nA longer sender window increases the period during which an acknowledgment lost in transit can lead to a repeat. Review receiver persistence separately from the platform upgrade. An automatic workspace upgrade does not extend a local receiver cleanup job.",
+      "fact_refs": [
+        "versions.3.0.rate_limit_per_minute",
+        "versions.3.0.default_retention_days",
+        "versions.3.0.webhook_retry_hours"
+      ]
+    },
+    {
+      "id": "D033-E03",
+      "heading": "Integration transition",
+      "text": "The current connector is {{legacy.v3_connector}}. The previous connector remains in its published transition period, but new deployments should use the current connector. Preserve old event envelopes in the integration archive until the rollback interval has closed.\n\nAfter switching, observe one read, one write, one export and one callback. A transport-only health check of an HTTP endpoint would cover transport only; use an application-level observation for the actual workflow.",
+      "fact_refs": [
+        "legacy.v3_connector"
+      ]
+    }
+  ]
+}

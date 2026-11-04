@@ -1,0 +1,52 @@
+{
+  "id": "D040",
+  "title": "Key revocation procedure",
+  "product": "orbit",
+  "version": "3.0",
+  "language": "en",
+  "access": "RESTRICTED",
+  "document_type": "runbook",
+  "status": "current",
+  "topics": [
+    "key"
+  ],
+  "rag_features": [
+    "acl",
+    "multi_evidence"
+  ],
+  "format": "md",
+  "organization": null,
+  "team": "security",
+  "required_roles": [
+    "security_admin"
+  ],
+  "authority": "official",
+  "synthetic": true,
+  "published_at": "2026-02-10",
+  "sections": [
+    {
+      "id": "D040-E01",
+      "heading": "Revoke an integration key",
+      "text": "Procedure {{revocation.runbook_code}} requires a second reviewer before the production revocation is confirmed. Identify the key by its nonsecret identifier and enumerate its assigned workspace and integration owners. Do not copy the key value into the review record.\n\nIf immediate containment is necessary, record the containment action and arrange the review of the affected integrations. Keep an explicit record of which actions were already performed; an approval message alone is not proof that the service state changed. The procedure owner reconciles the final credential state with the incident timeline.",
+      "fact_refs": [
+        "revocation.runbook_code"
+      ]
+    },
+    {
+      "id": "D040-E02",
+      "heading": "Propagation and verification",
+      "text": "Revocation propagates within {{revocation.max_propagation_seconds}} seconds. Verify a new request after that interval using the affected integration identity. A request accepted before the revocation is not evidence of a propagation failure. Capture request times and the effective revocation time in a common timezone.\n\nThe replacement credential must have only the necessary scopes. A successful containment can be undermined by giving the replacement broader access than the original. Review both read and write paths if the integration performs both kinds of operations.",
+      "fact_refs": [
+        "revocation.max_propagation_seconds"
+      ]
+    },
+    {
+      "id": "D040-E03",
+      "heading": "Security exercise correlation",
+      "text": "Use marker {{revocation.marker}} for the current key-revocation exercise. Keep this marker with the Security review record and do not include it in customer-facing updates. The exercise record and the production credential inventory have different distribution lists.\n\nWhen preparing an incident summary, omit raw credentials, protected register identifiers and unrelated tenant details. A request for more detail from another team must follow its access process. Possessing a product administrator role is not membership in the Security team.",
+      "fact_refs": [
+        "revocation.marker"
+      ]
+    }
+  ]
+}

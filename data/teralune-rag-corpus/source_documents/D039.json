@@ -1,0 +1,44 @@
+{
+  "id": "D039",
+  "title": "Verfahren zum Schlüsselwiderruf",
+  "product": "orbit",
+  "version": "3.0",
+  "language": "de",
+  "access": "INTERNAL",
+  "document_type": "incident",
+  "status": "current",
+  "topics": [
+    "incident"
+  ],
+  "rag_features": [
+    "conflict_resolution",
+    "acl",
+    "multi_evidence"
+  ],
+  "format": "md",
+  "organization": null,
+  "team": "operations",
+  "required_roles": [],
+  "authority": "incident",
+  "synthetic": true,
+  "published_at": "2026-06-18",
+  "sections": [
+    {
+      "id": "D039-E01",
+      "heading": "Zeitlicher Ablauf",
+      "text": "Der Vorfall {{revocation.incident_reference}} wurde am {{samples.incident_date}} an das Betriebsteam übergeben. Nach einem vermuteten Zugangsdatenabfluss wurde ein Schlüssel widerrufen. Ein Client arbeitete kurzzeitig mit einem bereits zwischengespeicherten Authentifizierungsergebnis weiter. Die erste interne Notiz bezeichnete den Widerruf als sofort auf allen Komponenten wirksam.\n\nDiese Formulierung war für die operative Übergabe zu ungenau. Der Dienst besitzt eine begrenzte Propagationszeit, während ein Client zusätzlich lokale Zustände anzeigen kann. Sichtbare Konfiguration und nächste tatsächlich autorisierte Anfrage wurden im Incident getrennt protokolliert.",
+      "fact_refs": [
+        "revocation.incident_reference",
+        "samples.incident_date"
+      ]
+    },
+    {
+      "id": "D039-E02",
+      "heading": "Verbindliche Frist und Kontrolle",
+      "text": "Die maximale Propagationszeit des Widerrufs beträgt {{revocation.max_propagation_seconds}} Sekunden. Die Kontrolle erfolgte an neuen Anfragen nach diesem Intervall. Eine bereits ausgeführte Aktion wurde durch den Widerruf nicht rückgängig gemacht.\n\nFür die Nachverfolgung wurden Schlüsselkennung, Workspace und Anfragezeit erfasst. Der Incidentbericht enthält keinen Schlüsselwert. Die detaillierten Freigabe- und Kontrollschritte liegen im Security-Runbook. Das Betriebsteam erhielt nur die Informationen, die für die Eingrenzung der betroffenen Integrationen erforderlich waren.",
+      "fact_refs": [
+        "revocation.max_propagation_seconds"
+      ]
+    }
+  ]
+}

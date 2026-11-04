@@ -1,0 +1,44 @@
+{
+  "id": "D010",
+  "title": "Security Exercise Marker Register",
+  "product": "orbit",
+  "version": "3.0",
+  "language": "en",
+  "access": "RESTRICTED",
+  "document_type": "security_fixture",
+  "status": "current",
+  "topics": [
+    "security"
+  ],
+  "rag_features": [
+    "acl",
+    "exact_identifier"
+  ],
+  "format": "md",
+  "sections": [
+    {
+      "id": "D010-E01",
+      "heading": "Exercise marker",
+      "text": "The marker for the current security exercise is {{operations.security_marker}}. Include this identifier in exercise records so that analysts can correlate observations across access reviews and incident notes. The marker is an identifier, not an authentication credential.\n\nThe register is limited to the security team. Requests from other teams follow the normal access approval process. Do not copy register entries into customer tickets or unrestricted incident summaries. Keep the exercise timeline separate from production incidents.",
+      "fact_refs": [
+        "operations.security_marker"
+      ]
+    },
+    {
+      "id": "D010-E02",
+      "heading": "Record handling",
+      "text": "At the end of an exercise, reconcile the observation log with the security review and close outstanding assignments. An observation should identify the affected service and the responsible team. Record references to protected material rather than copying its contents into a wider distribution list.\n\nWhen preparing a summary for another team, confirm the intended audience before including source titles or identifiers. Access to a summary does not imply access to every record it references. Keep the detailed register within the security team.",
+      "fact_refs": []
+    }
+  ],
+  "organization": null,
+  "team": "security",
+  "required_roles": [
+    "security_admin"
+  ],
+  "authority": "official",
+  "synthetic": true,
+  "published_at": "2026-02-10",
+  "security_fixture": true,
+  "fixture_notes": "Metadata only: Restricted harmless security exercise marker; access-control positive and negative cases."
+}

@@ -1,0 +1,51 @@
+{
+  "id": "D015",
+  "title": "Legacy onboarding",
+  "product": "orbit",
+  "version": "1.8",
+  "language": "en",
+  "access": "PUBLIC",
+  "document_type": "legacy",
+  "status": "historical",
+  "topics": [
+    "legacy"
+  ],
+  "rag_features": [
+    "version_conflict"
+  ],
+  "format": "md",
+  "organization": null,
+  "team": null,
+  "required_roles": [],
+  "authority": "official",
+  "synthetic": true,
+  "published_at": "2022-04-12",
+  "sections": [
+    {
+      "id": "D015-E01",
+      "heading": "Before connecting a sender",
+      "text": "Orbit 1.8 installations expose {{versions.1.8.api_prefix}}. These instructions describe that generation. Register a workspace before distributing its integration key. The key model is a {{legacy.v1_key_model}}; it does not offer the scope boundaries available in later clients. Keep a record of which sender owns each deployed copy. If several processes share a key, revoking it affects all of those processes.\n\nStart with one device and one measurement series. Give the device a stable external identifier that survives an application restart. The display name belongs to the user interface and is not an integration key. A sender that changes the external identifier each time it boots creates a new identity instead of continuing the old history.",
+      "fact_refs": [
+        "versions.1.8.api_prefix",
+        "legacy.v1_key_model"
+      ]
+    },
+    {
+      "id": "D015-E02",
+      "heading": "Retention and throughput",
+      "text": "The provisioning default is {{versions.1.8.default_retention_days}} days of measurement retention. The workspace request budget is {{versions.1.8.rate_limit_per_minute}} requests per minute. Both values belong to the 1.8 contract; a dashboard exported from a newer installation is not a reliable description of this deployment.\n\nA collection agent should retain its own outgoing queue until the server confirms acceptance. Do not delete the local sample solely because a TCP connection was opened. When a connection drops during a request, first determine whether the request was accepted. A network timeout does not prove that the server stored nothing. Record a stable sample identifier in the sender log to support reconciliation.",
+      "fact_refs": [
+        "versions.1.8.default_retention_days",
+        "versions.1.8.rate_limit_per_minute"
+      ]
+    },
+    {
+      "id": "D015-E03",
+      "heading": "First handover",
+      "text": "The 1.8 measurement notification is {{legacy.event_v1}}. Register the receiver against this event name rather than a name copied from a later release. Verify that the receiver can parse the payload before enabling a large device fleet. A callback acknowledges a submitted observation; it is not a replacement for the sender acceptance response.\n\nThe handover record should include the deployed version, workspace, device identifier and receiver owner. Do not include the workspace key. Keep a rollback copy of the sender configuration outside its running process. A successful request from one workstation is insufficient evidence that every deployed agent uses the same configuration.",
+      "fact_refs": [
+        "legacy.event_v1"
+      ]
+    }
+  ]
+}

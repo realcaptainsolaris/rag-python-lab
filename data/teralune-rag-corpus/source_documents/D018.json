@@ -1,0 +1,48 @@
+{
+  "id": "D018",
+  "title": "Device registration",
+  "product": "orbit",
+  "version": "3.0",
+  "language": "en",
+  "access": "PUBLIC",
+  "document_type": "reference",
+  "status": "current",
+  "topics": [
+    "device"
+  ],
+  "rag_features": [
+    "exact_identifier",
+    "chunk_boundary"
+  ],
+  "format": "md",
+  "organization": null,
+  "team": null,
+  "required_roles": [],
+  "authority": "official",
+  "synthetic": true,
+  "published_at": "2026-02-10",
+  "sections": [
+    {
+      "id": "D018-E01",
+      "heading": "Register by external identifier",
+      "text": "Register a device with POST {{devices.register_endpoint}}. The external identifier is limited to {{devices.external_id_max_chars}} characters and is unique by {{devices.unique_key}}. Choose it from the physical inventory, not from an editable display name. Two organisations may use the same local name without sharing a device identity.\n\nBefore provisioning a large batch, inspect the identifier normalization performed by your agent. Removing punctuation or truncating identifiers can collapse two inventory entries into one. A display label can be corrected later; changing the integration identity requires a deliberate reconciliation of history.",
+      "fact_refs": [
+        "devices.register_endpoint",
+        "devices.external_id_max_chars",
+        "devices.unique_key"
+      ]
+    },
+    {
+      "id": "D018-E02",
+      "heading": "Request and response",
+      "text": "A registration request identifies the external device and its initial display name. For example:\n\n```http\nPOST /api/v3/devices\nContent-Type: application/json\nAuthorization: Bearer <ACCESS_TOKEN>\n\n{\"external_id\":\"pump-west-17\",\"display_name\":\"West circulation pump\"}\n```\n\nThe returned device_id is the identifier used in measurements. Preserve it in the sender configuration. Do not substitute the external identifier for device_id merely because both identify the same physical unit to a human operator. Keep a lookup between the two when integrating with an inventory system.",
+      "fact_refs": []
+    },
+    {
+      "id": "D018-E03",
+      "heading": "Duplicate registration review",
+      "text": "If an agent cannot find its device after a reinstall, inspect the workspace before registering another device. The same external identifier in a different workspace is a different registration. A token can be valid while targeting the wrong workspace.\n\nTreat registration as a lifecycle action. Repeatedly creating devices to repair a permission error leaves unused entries and consumes the plan capacity. Confirm the existing identity and scope first, then use the lifecycle procedure to retire entries that were genuinely replaced.",
+      "fact_refs": []
+    }
+  ]
+}

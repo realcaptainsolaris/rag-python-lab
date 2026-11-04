@@ -1,0 +1,78 @@
+{
+  "version": "1.0.0",
+  "documents": 48,
+  "document_type": {
+    "guide": 11,
+    "reference": 11,
+    "legacy": 4,
+    "migration": 1,
+    "pricing_reference": 1,
+    "support_case": 5,
+    "runbook": 3,
+    "security_fixture": 2,
+    "policy": 2,
+    "faq": 3,
+    "release_notes": 2,
+    "engineering": 1,
+    "incident": 2
+  },
+  "language": {
+    "en": 36,
+    "de": 12
+  },
+  "format": {
+    "md": 36,
+    "html": 3,
+    "csv": 3,
+    "pdf": 3,
+    "docx": 3
+  },
+  "access": {
+    "PUBLIC": 35,
+    "CUSTOMER": 6,
+    "INTERNAL": 5,
+    "RESTRICTED": 2
+  },
+  "product_version": {
+    "3.0": 42,
+    "2.4": 3,
+    "1.8": 3
+  },
+  "questions": 120,
+  "split": {
+    "smoke": 25,
+    "test": 95
+  },
+  "expected_behavior": {
+    "answer": 99,
+    "clarify": 6,
+    "no_answer": 6,
+    "deny": 9
+  },
+  "question_category": {
+    "version_specific": 7,
+    "exact_identifier": 14,
+    "paraphrase": 19,
+    "multilingual": 6,
+    "table_lookup": 8,
+    "multi_evidence": 14,
+    "conflict_resolution": 4,
+    "ambiguous": 6,
+    "unanswerable": 6,
+    "access_restricted": 11,
+    "exact_fact": 25
+  },
+  "evidence_passages": 146,
+  "multi_evidence_category": 14,
+  "multiple_passage_questions": 35,
+  "cross_document_questions": 20,
+  "multi_evidence_category_with_multiple_passages": 11,
+  "chunking_challenge_documents": 13,
+  "security_fixture_documents": 3,
+  "prompt_injection_documents": 2,
+  "body_words": 13176,
+  "document_body_word_range": {
+    "min": 42,
+    "max": 737
+  }
+}

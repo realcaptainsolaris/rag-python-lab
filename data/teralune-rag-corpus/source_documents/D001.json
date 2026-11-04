@@ -1,0 +1,48 @@
+{
+  "id": "D001",
+  "title": "Orbit 3 Getting Started",
+  "product": "orbit",
+  "version": "3.0",
+  "language": "en",
+  "access": "PUBLIC",
+  "document_type": "guide",
+  "status": "current",
+  "topics": [
+    "orbit"
+  ],
+  "rag_features": [
+    "exact_fact",
+    "paraphrase"
+  ],
+  "format": "md",
+  "sections": [
+    {
+      "id": "D001-E01",
+      "heading": "Create a workspace",
+      "text": "Teralune Orbit groups device identities and incoming observations inside a workspace. A device belongs to one workspace; creating a team does not move a device. Choose a stable workspace slug before connecting an integration. The examples use ws-amber-lab in the organisation org-amber. A workspace is an isolation boundary, not a folder label. A credential issued for one workspace cannot read another workspace simply by changing a query parameter.\n\nBegin with a dedicated test workspace. Register two devices with distinct external identifiers and confirm that their clocks use UTC. A display name is editable, whereas an external identifier is used to reconcile incoming data. Reusing the same external identifier for two physical devices makes downstream diagnosis difficult. Keep a local inventory that records which device owns each identifier.",
+      "fact_refs": []
+    },
+    {
+      "id": "D001-E02",
+      "heading": "Send the first observation",
+      "text": "Use {{versions.3.0.api_prefix}}/measurements to submit observations. Send timestamps as RFC 3339 strings with an explicit UTC offset. The ingestion response confirms acceptance, not delivery to every downstream consumer. A webhook can arrive after a successful ingestion response.\n\n```http\nPOST /api/v3/measurements\nAuthorization: Bearer <TRAINING_TOKEN>\nContent-Type: application/json\n\n{\"device_id\":\"dev-lab-17\",\"timestamp\":\"2026-03-10T12:00:00Z\",\"value\":21.6,\"unit\":\"degC\"}\n```\n\nUse a measurement name together with the unit; do not infer temperature from a field called value. Preserve the response identifier in your integration log so support can distinguish a missing submission from a delayed notification. Never paste a bearer credential into a ticket.",
+      "fact_refs": [
+        "versions.3.0.api_prefix"
+      ]
+    },
+    {
+      "id": "D001-E03",
+      "heading": "Read back and disconnect",
+      "text": "A fresh workspace uses a default retention of {{versions.3.0.default_retention_days}} days. Read back the observation with the same workspace credential before configuring alerts or exports. If no rows appear, compare the workspace, device identifier and timestamp first. Expanding the time range cannot repair a request made against the wrong workspace.\n\nWhen removing the test integration, revoke its credential and stop its sender. Deleting a dashboard does not revoke an API key. Keep device registration separate from credential management so that removing a reader does not accidentally remove the device history.",
+      "fact_refs": [
+        "versions.3.0.default_retention_days"
+      ]
+    }
+  ],
+  "organization": null,
+  "team": null,
+  "required_roles": [],
+  "authority": "official",
+  "synthetic": true,
+  "published_at": "2026-02-10"
+}

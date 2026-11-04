@@ -1,0 +1,84 @@
+{
+  "id": "D020",
+  "title": "Measurement schema",
+  "product": "orbit",
+  "version": "3.0",
+  "language": "en",
+  "access": "PUBLIC",
+  "document_type": "reference",
+  "status": "current",
+  "topics": [
+    "measurement"
+  ],
+  "rag_features": [
+    "table_lookup",
+    "chunk_boundary"
+  ],
+  "format": "html",
+  "organization": null,
+  "team": null,
+  "required_roles": [],
+  "authority": "official",
+  "synthetic": true,
+  "published_at": "2026-02-10",
+  "sections": [
+    {
+      "id": "D020-E01",
+      "heading": "Measurement fields",
+      "text": "Each observation contains the fields in the table below. The schema describes the request body, not an export column order. Keep the field name and its meaning together when mapping a source record. A database column named temperature can supply a measurement named outlet-temperature, but its value still needs an explicit unit.\n\nThe value field must be a finite JSON number. Strings that look numeric are not converted implicitly, and nonfinite floating-point values cannot be represented as valid measurement values. Validate the sender payload before placing it on a retry queue.",
+      "fact_refs": [
+        "measurement_fields.device_id",
+        "measurement_fields.timestamp",
+        "measurement_fields.name",
+        "measurement_fields.value",
+        "measurement_fields.unit"
+      ],
+      "table": {
+        "headers": [
+          "field",
+          "meaning"
+        ],
+        "rows": [
+          [
+            "device_id",
+            "{{measurement_fields.device_id}}"
+          ],
+          [
+            "timestamp",
+            "{{measurement_fields.timestamp}}"
+          ],
+          [
+            "name",
+            "{{measurement_fields.name}}"
+          ],
+          [
+            "value",
+            "{{measurement_fields.value}}"
+          ],
+          [
+            "unit",
+            "{{measurement_fields.unit}}"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "D020-E02",
+      "heading": "Units and series identity",
+      "text": "Changing the unit requires {{measurements.unit_change}}. A series whose first records use Celsius and whose later records use Fahrenheit cannot be safely aggregated without an explicit conversion. Orbit does not infer a conversion from the display label.\n\nIf a device firmware upgrade changes units, introduce a new measurement name and keep the conversion in the integration layer. Record the cutover time so existing dashboards can be updated. Resending the earlier samples with a new label is a data migration and should not be mixed with ordinary ingestion retries.",
+      "fact_refs": [
+        "measurements.unit_change"
+      ]
+    },
+    {
+      "id": "D020-E03",
+      "heading": "Batch acceptance",
+      "text": "The batch endpoint is {{measurements.batch_endpoint}} and accepts at most {{measurements.batch_size}} measurements per request. The required field list is {{measurements.required_fields}}. A batch response reports acceptance per item. Persist the outcome of each item instead of assuming that one HTTP success means every item was valid.\n\nIf only a subset failed, repair and resend that subset. Reconstructing an entire batch from a changing input file can create a different set of observations on the second attempt. Keep the source offset and the original item identity with the batch result.",
+      "fact_refs": [
+        "measurements.batch_endpoint",
+        "measurements.batch_size",
+        "measurements.required_fields"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "id": "D026",
+  "title": "Webhook secret rotation",
+  "product": "orbit",
+  "version": "3.0",
+  "language": "en",
+  "access": "PUBLIC",
+  "document_type": "guide",
+  "status": "current",
+  "topics": [
+    "webhook"
+  ],
+  "rag_features": [
+    "multi_evidence",
+    "chunk_boundary"
+  ],
+  "format": "md",
+  "organization": null,
+  "team": null,
+  "required_roles": [],
+  "authority": "official",
+  "synthetic": true,
+  "published_at": "2026-02-10",
+  "sections": [
+    {
+      "id": "D026-E01",
+      "heading": "Prepare the receiver",
+      "text": "A subscription may have at most {{rotation.max_active_secrets}} active signing secrets. During rotation, the overlap lasts {{rotation.overlap_minutes}} minutes. The request header {{rotation.secret_header}} identifies the signing key. Select the intended verifier from this identifier; do not try an unlimited historical list until a signature happens to match.\n\nDeploy support for the replacement secret to every receiver instance before activating it on the sender. A load balancer can alternate between an updated and an outdated instance, producing a pattern that looks like intermittent signature corruption. Keep receiver configuration versions visible in logs without exposing the secret material.",
+      "fact_refs": [
+        "rotation.max_active_secrets",
+        "rotation.overlap_minutes",
+        "rotation.secret_header"
+      ]
+    },
+    {
+      "id": "D026-E02",
+      "heading": "Verify bytes before parsing",
+      "text": "The signature header is {{webhooks.signature_header}} and the algorithm is {{webhooks.algorithm}}. Verify the exact raw body before decoding JSON. A proxy that decompresses, reserializes or prettifies the body changes the bytes and invalidates the signature.\n\nRetain the selected key identifier and verification outcome, not the secret. If verification fails only on one path through the infrastructure, compare middleware behavior before rotating again. Creating a third key is not a repair for a receiver that has already changed the payload.\n\nReceiver boundary pseudocode:\n\n```text\nkey_id = request.header(\"X-Orbit-Key-ID\")\nkey = configured_active_key(key_id)\nraw_body = request.unmodified_bytes()\nexpected = HMAC_SHA256(key, raw_body)\ncompare_signature_before_json_decode(expected)\n```\n\nThe active-key lookup must not fall back to an arbitrary archived secret.",
+      "fact_refs": [
+        "webhooks.signature_header",
+        "webhooks.algorithm"
+      ]
+    },
+    {
+      "id": "D026-E03",
+      "heading": "Complete the overlap",
+      "text": "After the overlap ends, remove the previous secret from the receiver and confirm that all instances have reloaded. Old deliveries that are retried after rotation are signed with the active sender key at attempt time. Do not keep an obsolete secret indefinitely merely because the event was created earlier.\n\nKeep secret rotation separate from OAuth credential rotation. Signing verifies an incoming callback; OAuth authorizes API calls to Orbit. A valid callback signature does not grant permission to create exports or change a workspace. Record the two changes in separate deployment steps.",
+      "fact_refs": []
+    }
+  ]
+}

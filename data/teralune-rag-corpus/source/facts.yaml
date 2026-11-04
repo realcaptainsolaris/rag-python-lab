@@ -1,0 +1,289 @@
+{
+  "versions": {
+    "1.8": {
+      "release_date": "2022-04-12",
+      "api_prefix": "/api/v1",
+      "webhook_retry_hours": 6,
+      "access_token_minutes": 180,
+      "default_retention_days": 14,
+      "rate_limit_per_minute": 200,
+      "status": "legacy"
+    },
+    "2.4": {
+      "release_date": "2024-06-18",
+      "api_prefix": "/api/v2",
+      "webhook_retry_hours": 24,
+      "access_token_minutes": 120,
+      "default_retention_days": 30,
+      "rate_limit_per_minute": 500,
+      "status": "previous"
+    },
+    "3.0": {
+      "release_date": "2026-02-10",
+      "api_prefix": "/api/v3",
+      "webhook_retry_hours": 72,
+      "access_token_minutes": 60,
+      "default_retention_days": 90,
+      "rate_limit_per_minute": 1000,
+      "status": "current"
+    }
+  },
+  "auth": {
+    "api_key_expiry_days": 180,
+    "oauth_grant": "client_credentials",
+    "token_endpoint": "/oauth/token",
+    "read_scope": "telemetry:read",
+    "write_scope": "telemetry:write",
+    "issuer": "https://identity.teralune.example",
+    "audience": "orbit-api",
+    "clock_skew_seconds": 30
+  },
+  "webhooks": {
+    "event": "measurement.created",
+    "signature_header": "X-Orbit-Signature",
+    "id_header": "X-Orbit-Delivery-ID",
+    "algorithm": "HMAC-SHA256",
+    "timeout_seconds": 10,
+    "retryable": "network failures, HTTP 408, HTTP 429 and HTTP 5xx",
+    "terminal": "HTTP 400, HTTP 401, HTTP 403, HTTP 404 and HTTP 410",
+    "success": "HTTP 2xx",
+    "delivery": "at least once",
+    "idempotency_hours": 96,
+    "backoff_minutes": [
+      1,
+      5,
+      15,
+      60
+    ],
+    "jitter_percent": 20
+  },
+  "export": {
+    "formats": [
+      "CSV",
+      "JSONL"
+    ],
+    "max_window_days": 7,
+    "download_hours": 24,
+    "scope": "exports:create",
+    "event": "export.completed",
+    "endpoint": "/api/v3/exports",
+    "max_rows": 1000000
+  },
+  "api": {
+    "devices": "/api/v3/devices",
+    "measurements": "/api/v3/measurements",
+    "page_size_default": 100,
+    "page_size_max": 500,
+    "rate_limit_scope": "workspace",
+    "rate_limit_window": "fixed UTC calendar minute"
+  },
+  "plans": {
+    "Starter": {
+      "devices": 100,
+      "retention_days": 90,
+      "workspaces": 1
+    },
+    "Team": {
+      "devices": 1000,
+      "retention_days": 180,
+      "workspaces": 5
+    },
+    "Enterprise": {
+      "devices": 10000,
+      "retention_days": 365,
+      "workspaces": 20
+    }
+  },
+  "errors": {
+    "AUTH-104": "access token expired",
+    "AUTH-140": "required scope missing",
+    "AUTH-141": "workspace mismatch",
+    "RATE-201": "workspace request budget exhausted",
+    "HOOK-310": "delivery deadline exceeded",
+    "DATA-422": "measurement timestamp outside retention window"
+  },
+  "operations": {
+    "queue_warning_minutes": 15,
+    "queue_escalation_minutes": 30,
+    "security_marker": "TRAINING_ONLY_CEDAR_47",
+    "deletion_grace_hours": 48,
+    "audit_retention_days": 365
+  },
+  "roles": {
+    "viewer": [
+      "devices:read",
+      "telemetry:read"
+    ],
+    "operator": [
+      "devices:read",
+      "telemetry:read",
+      "telemetry:write"
+    ],
+    "admin": [
+      "devices:read",
+      "telemetry:read",
+      "telemetry:write",
+      "exports:create",
+      "teams:manage"
+    ]
+  },
+  "world": {
+    "company": "Teralune Systems",
+    "product": "Teralune Orbit",
+    "as_of": "2026-10-15",
+    "tenant_a": "org-amber",
+    "tenant_b": "org-cobalt",
+    "synthetic": true
+  },
+  "devices": {
+    "register_endpoint": "/api/v3/devices",
+    "external_id_max_chars": 64,
+    "states": [
+      "active",
+      "paused",
+      "retired"
+    ],
+    "delete_grace_hours": 48,
+    "rename_preserves_id": true,
+    "unique_key": "workspace_id plus external_id"
+  },
+  "measurements": {
+    "required_fields": [
+      "device_id",
+      "timestamp",
+      "name",
+      "value",
+      "unit"
+    ],
+    "value_type": "finite JSON number",
+    "max_future_seconds": 300,
+    "timestamp_format": "RFC 3339 with explicit offset",
+    "batch_size": 200,
+    "batch_endpoint": "/api/v3/measurements/batch",
+    "unit_change": "new measurement name required"
+  },
+  "pagination": {
+    "cursor_ttl_minutes": 15,
+    "parameter": "cursor",
+    "continuation_field": "next_cursor",
+    "order": "timestamp ascending, then measurement_id ascending",
+    "scope": "workspace, filters and sort order",
+    "snapshot": false
+  },
+  "alerts": {
+    "metric": "temperature",
+    "trigger_operator": ">",
+    "trigger_value": 80,
+    "clear_value": 75,
+    "required_consecutive": 3,
+    "missing_samples": "do not trigger or clear",
+    "evaluation": "per accepted measurement",
+    "event_types": [
+      "alert.opened",
+      "alert.resolved",
+      "alert.suppressed"
+    ],
+    "suppressed_delivery": false,
+    "maintenance_minutes": 30
+  },
+  "rotation": {
+    "overlap_minutes": 120,
+    "secret_header": "X-Orbit-Key-ID",
+    "max_active_secrets": 2,
+    "verify_before_json": true
+  },
+  "integration": {
+    "recommended_inflight_requests": 4,
+    "checkpoint_unit": "acknowledged batch",
+    "example_config_key": "ORBIT_WORKSPACE_ID",
+    "reconnect_backoff_seconds": 30
+  },
+  "teams": {
+    "invite_hours": 48,
+    "max_teams_per_workspace": 12,
+    "scope": "teams:manage",
+    "last_admin_removal": "rejected",
+    "role_change_effect": "next authorized request"
+  },
+  "billing": {
+    "cycle": "calendar month in UTC",
+    "invoice_day": 1,
+    "currency": "EUR",
+    "usage_basis": "daily peak registered devices",
+    "plan_change": "next UTC day",
+    "download_months": 12
+  },
+  "retention": {
+    "change_scope": "workspace",
+    "decrease_effect": "next cleanup cycle",
+    "increase_effect": "future visibility only; no restoration of removed measurements",
+    "cleanup_utc_hour": 2,
+    "tombstone_event": "workspace.deleted",
+    "index_tombstone_scope": "document store, lexical index, vector index and answer cache"
+  },
+  "legacy": {
+    "event_v1": "reading.received",
+    "event_v2": "measurement.accepted",
+    "event_v3": "measurement.created",
+    "v2_connector": "orbit-push",
+    "v3_connector": "orbit-stream",
+    "connector_end_date": "2026-12-31",
+    "v1_key_model": "workspace-wide key",
+    "v2_key_model": "scoped API key",
+    "v1_export_format": "CSV"
+  },
+  "queue": {
+    "lease_seconds": 120,
+    "heartbeat_seconds": 30,
+    "max_recovery_attempts": 3,
+    "recovery_ticket_prefix": "OPS-REC",
+    "handover_path": "operations/export-queue",
+    "priority": "oldest eligible job first"
+  },
+  "revocation": {
+    "max_propagation_seconds": 60,
+    "incident_reference": "SEC-IR-026",
+    "runbook_code": "SEC-RB-09",
+    "two_person_review": true,
+    "marker": "TRAINING_ONLY_MAPLE_62"
+  },
+  "samples": {
+    "export_id": "exp-amber-041",
+    "export_workspace": "ws-amber-lab",
+    "export_rows": 4200,
+    "export_format": "JSONL",
+    "export_status": "completed",
+    "export_start": "2026-03-10T00:00:00Z",
+    "export_end": "2026-03-11T00:00:00Z",
+    "device_external_id": "pump-west-17",
+    "support_duplicate": "TRAIN-314",
+    "support_cobalt": "TRAIN-322",
+    "support_archived": "TRAIN-329",
+    "support_replay": "TRAIN-341",
+    "incident_date": "2026-06-18"
+  },
+  "event_catalog": {
+    "alert.opened": {
+      "meaning": "threshold condition entered",
+      "delivery": "webhook",
+      "payload_key": "alert_id"
+    },
+    "alert.resolved": {
+      "meaning": "clear condition satisfied",
+      "delivery": "webhook",
+      "payload_key": "alert_id"
+    },
+    "alert.suppressed": {
+      "meaning": "notification suppressed during maintenance",
+      "delivery": "audit only",
+      "payload_key": "maintenance_id"
+    }
+  },
+  "measurement_fields": {
+    "device_id": "registered device identifier",
+    "timestamp": "RFC 3339 with explicit offset",
+    "name": "measurement series identifier",
+    "value": "finite JSON number",
+    "unit": "stable unit label"
+  }
+}

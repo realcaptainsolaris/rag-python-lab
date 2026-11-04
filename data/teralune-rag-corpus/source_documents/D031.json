@@ -1,0 +1,55 @@
+{
+  "id": "D031",
+  "title": "Retention changes",
+  "product": "orbit",
+  "version": "3.0",
+  "language": "en",
+  "access": "PUBLIC",
+  "document_type": "policy",
+  "status": "current",
+  "topics": [
+    "retention"
+  ],
+  "rag_features": [
+    "document_update",
+    "chunk_boundary",
+    "multi_evidence",
+    "deletion"
+  ],
+  "format": "pdf",
+  "organization": null,
+  "team": null,
+  "required_roles": [],
+  "authority": "official",
+  "synthetic": true,
+  "published_at": "2026-02-10",
+  "sections": [
+    {
+      "id": "D031-E01",
+      "heading": "Change the workspace policy",
+      "text": "Retention changes apply at the {{retention.change_scope}} level. New workspaces inherit the selected plan policy; upgrades of the product generation do not silently replace an existing workspace setting. Inspect the stored policy before estimating which timestamps remain visible.\n\nA shorter policy affects the next cleanup cycle. Export any records that must be retained elsewhere before reducing the interval. Creating an export job and receiving its identifier does not prove that a completed file has been downloaded. Wait for the job result and verify the selected interval before changing a destructive policy.",
+      "fact_refs": [
+        "retention.change_scope"
+      ]
+    },
+    {
+      "id": "D031-E02",
+      "heading": "Cleanup timing",
+      "text": "Cleanup runs at {{retention.cleanup_utc_hour}}:00 UTC. A decrease takes effect at the {{retention.decrease_effect}}. Increasing the period means {{retention.increase_effect}}. A number displayed in the new policy is not evidence that previously removed records have been restored.\n\nWhen investigating a gap, capture the old setting, the effective change and the cleanup time. A device that stopped sending and a policy that removed old data can create similar empty intervals. Compare the ingestion history with the policy change record before asking the sender to replay data.",
+      "fact_refs": [
+        "retention.cleanup_utc_hour",
+        "retention.decrease_effect",
+        "retention.increase_effect"
+      ]
+    },
+    {
+      "id": "D031-E03",
+      "heading": "Downstream indexes and deletion",
+      "text": "The workspace tombstone event is {{retention.tombstone_event}}. A consumer applies it across the {{retention.index_tombstone_scope}}. Removing only the stored document does not remove a cached answer containing its contents.\n\nKeep a deletion checkpoint separate from ordinary ingestion progress. During recovery, apply tombstones before permitting reads against a rebuilt index. If a source is removed while an export is being processed, the consumer must reconcile the deletion instead of treating the older export as permission to reintroduce the source.",
+      "fact_refs": [
+        "retention.tombstone_event",
+        "retention.index_tombstone_scope"
+      ]
+    }
+  ]
+}

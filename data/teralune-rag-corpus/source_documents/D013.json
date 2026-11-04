@@ -1,0 +1,43 @@
+{
+  "id": "D013",
+  "title": "Workspace Deletion Policy",
+  "product": "orbit",
+  "version": "3.0",
+  "language": "en",
+  "access": "PUBLIC",
+  "document_type": "policy",
+  "status": "current",
+  "topics": [
+    "workspace"
+  ],
+  "rag_features": [
+    "document_update",
+    "deletion",
+    "exact_fact"
+  ],
+  "format": "pdf",
+  "sections": [
+    {
+      "id": "D013-E01",
+      "heading": "Deletion schedule",
+      "text": "A workspace deletion request starts a {{operations.deletion_grace_hours}} hour grace period. During the grace period an administrator may cancel the request. At the end of the grace period the workspace is removed from the active service. This policy describes active workspace data; it does not promise instantaneous erasure from every backup medium.\n\nStop senders and exports before submitting the request. Otherwise an integration can continue retrying requests against a workspace that is pending deletion. Keep a deletion request identifier in the administrative change record. A request to remove a dashboard is a different action and does not start this schedule.",
+      "fact_refs": [
+        "operations.deletion_grace_hours"
+      ]
+    },
+    {
+      "id": "D013-E02",
+      "heading": "Audit records",
+      "text": "Administrative audit records are retained for {{operations.audit_retention_days}} days. Audit retention is separate from measurement retention and from the deletion grace period. Audit records contain action metadata rather than exported measurement payloads. The existence of an audit record must not be used to recreate a deleted search result.\n\nWhen rebuilding a downstream search index, apply tombstones before accepting queries. A cached answer can outlive its source document; invalidating only the vector entry leaves that cached answer reachable. Verify the document store, lexical index, vector index and answer cache independently.",
+      "fact_refs": [
+        "operations.audit_retention_days"
+      ]
+    }
+  ],
+  "organization": null,
+  "team": null,
+  "required_roles": [],
+  "authority": "official",
+  "synthetic": true,
+  "published_at": "2026-02-10"
+}

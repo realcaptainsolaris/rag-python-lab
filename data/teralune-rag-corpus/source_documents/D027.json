@@ -1,0 +1,64 @@
+{
+  "id": "D027",
+  "title": "Webhook receiver checklist",
+  "product": "orbit",
+  "version": "3.0",
+  "language": "en",
+  "access": "CUSTOMER",
+  "document_type": "guide",
+  "status": "current",
+  "topics": [
+    "webhook"
+  ],
+  "rag_features": [
+    "chunk_boundary",
+    "acl",
+    "multi_evidence"
+  ],
+  "format": "docx",
+  "organization": "org-amber",
+  "team": null,
+  "required_roles": [],
+  "authority": "official",
+  "synthetic": true,
+  "published_at": "2026-02-10",
+  "sections": [
+    {
+      "id": "D027-E01",
+      "heading": "Scope of the receiver handover",
+      "text": "This checklist applies to the org-amber receiver integration. Identify the subscription owner, queue owner and deployment owner before enabling production deliveries. The HTTP handler and the background worker can have different operators. A handover is incomplete if only the web endpoint has an owner.\n\nConfirm that the configured subscription uses the target workspace and event. Keep the source event envelope available until the receiver has stored its local action. A successful TLS connection establishes transport to an endpoint; it says nothing about whether that endpoint uses the correct signing key or persists the correct delivery identifier.",
+      "fact_refs": []
+    },
+    {
+      "id": "D027-E02",
+      "heading": "Acceptance transaction",
+      "text": "Before returning HTTP success, verify the signature and durably store the delivery identifier with the local action. The identifier comes from {{webhooks.id_header}}. Keep that record for {{webhooks.idempotency_hours}} hours. If the database transaction fails, do not acknowledge an action that cannot be recovered.\n\nThe local uniqueness boundary includes the subscription. Two subscriptions can intentionally process an observation for different business purposes; one global processed flag can incorrectly suppress one consumer. A receiver restart must preserve the committed identifiers. Check that the background worker can distinguish a newly queued action from a duplicate notification.",
+      "fact_refs": [
+        "webhooks.id_header",
+        "webhooks.idempotency_hours"
+      ],
+      "level": 3,
+      "parent_evidence_id": "D027-E01"
+    },
+    {
+      "id": "D027-E03",
+      "heading": "Cutover checklist",
+      "text": "Before cutover, inspect the receiver with an accepted event, a duplicate delivery and an invalid signature. These exercise different branches of the handler. Do not declare readiness solely because the happy path returned success.\n\nRecord the result of each check in the handover, including the subscription identifier and receiver deployment version. Remove raw request bodies from broad distribution if they contain customer data. After cutover, compare unique delivery identifiers with committed local actions. A rise in HTTP requests without a rise in unique actions can be normal retry behavior, whereas a rise in committed actions for one identifier needs investigation.",
+      "fact_refs": [],
+      "level": 3,
+      "parent_evidence_id": "D027-E01"
+    },
+    {
+      "id": "D027-E04",
+      "heading": "Failure rehearsal before handover",
+      "text": "Rehearse the receiver with a process stop after the acceptance transaction and before the background action completes. On restart, inspect the durable queue rather than reconstructing tasks from HTTP logs. The owner must know whether queued work resumes automatically and which state requires manual review. Keep the local action identifier with the delivery reference throughout the rehearsal.\n\nRepeat the check while an acknowledgment is interrupted. The receiver should be able to find the previously committed action when the delivery is attempted again. Inspect the actual uniqueness constraint, not just a log line saying duplicate detected. A branch that returns early without checking the committed state can conceal an action that never reached the queue.\n\nThe handover should list observed outcomes and unresolved questions. A checklist containing only ticks cannot explain which deployment, subscription and receiver instance were checked. Attach a concise record of those nonsecret identifiers and keep payload-bearing logs within their appropriate access boundary.",
+      "fact_refs": []
+    },
+    {
+      "id": "D027-E05",
+      "heading": "Ownership after a configuration change",
+      "text": "When a signing key changes, ensure that the person updating the subscription and the person maintaining the receiver agree on the activation sequence. A deployment can pass an isolated request check while another receiver instance still uses the old configuration. Record which instances loaded the replacement and how their configuration version is observed.\n\nThe receiver queue owner should know how to distinguish an authentication rejection from a task-processing failure. In the first case no authorized action should be queued; in the second the accepted delivery may already require recovery. Restarting every component obscures that distinction and can remove the evidence needed to choose a safe repair.\n\nKeep the operational handover focused on decisions that the next operator can verify. Include the queue observation, the source subscription and the escalation contact. Do not turn the handover into an archive of all integration traffic. The evidence needed for ownership is usually smaller than the complete message history.",
+      "fact_refs": []
+    }
+  ]
+}

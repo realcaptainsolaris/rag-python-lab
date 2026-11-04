@@ -1,0 +1,48 @@
+{
+  "id": "D047",
+  "title": "Wiederanlauf nach Störung",
+  "product": "orbit",
+  "version": "3.0",
+  "language": "de",
+  "access": "INTERNAL",
+  "document_type": "incident",
+  "status": "current",
+  "topics": [
+    "wiederanlauf"
+  ],
+  "rag_features": [
+    "multi_evidence",
+    "acl"
+  ],
+  "format": "md",
+  "organization": null,
+  "team": "operations",
+  "required_roles": [],
+  "authority": "official",
+  "synthetic": true,
+  "published_at": "2026-06-18",
+  "sections": [
+    {
+      "id": "D047-E01",
+      "heading": "Beobachtung während des Neustarts",
+      "text": "Beim Wiederanlauf am {{samples.incident_date}} zeigte das Dashboard weniger wartende Aufträge, obwohl der zuvor älteste Export noch nicht gestartet war. Die sinkende Summe hatte zunächst den Eindruck vermittelt, die Störung sei vollständig behoben. Neue kleine Aufträge konnten jedoch verarbeitet werden, während ein älterer Auftrag seinen Zustand nicht wechselte.\n\nDas Team verglich danach Auftrag, Workspace, Lease und letzte Aktivität statt nur die globale Anzahl. Die Chronologie hielt fest, welche Beobachtung vor und welche nach dem Worker-Neustart lag. So wurde ein zeitlich versetztes Monitoringbild nicht mit einer neuen Störung verwechselt.",
+      "fact_refs": [
+        "samples.incident_date"
+      ]
+    },
+    {
+      "id": "D047-E02",
+      "heading": "Abgleich der Wiederaufnahme",
+      "text": "Die automatische Wiederaufnahme endet nach {{queue.max_recovery_attempts}} Versuchen. Danach wird der bestehende Output mit dem Manifest abgeglichen, bevor ein weiterer Worker gestartet wird. Ein bereits hochgeladenes Objekt kann existieren, obwohl die Datenbank den Abschluss noch nicht vermerkt hat.\n\nDer Operator dokumentierte die alte Lease-Kennung und die Entscheidung zum neuen Besitzer. Die Untersuchung blieb auf den betroffenen Workspace beschränkt. Dateien anderer Kunden waren für diesen Abgleich weder notwendig noch freigegeben.",
+      "fact_refs": [
+        "queue.max_recovery_attempts"
+      ]
+    },
+    {
+      "id": "D047-E03",
+      "heading": "Folgerung für die Übergabe",
+      "text": "Für den Folgedienst wurden zwei Nachweise vereinbart: der zuvor blockierte Auftrag muss einen nachvollziehbaren Abschluss besitzen, und ein später neu eingegangener Auftrag muss normal verarbeitet werden. Nur einer dieser Nachweise hätte eine verbleibende Blockade oder eine neu entstandene Gesamtstörung übersehen können.\n\nDer Incidentbericht enthält Zustände und Referenzen, keine vollständigen Exportinhalte. Die detaillierten Workerparameter stehen im Engineering-Dokument; sie werden nicht als zusätzliche Handlungsanweisung in jeden Bericht kopiert.",
+      "fact_refs": []
+    }
+  ]
+}

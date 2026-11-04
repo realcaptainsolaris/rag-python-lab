@@ -1,0 +1,4 @@
+# diese Datei in .env umbenennen und den Key eintragen
+OPENAI_API_KEY=hier_key_eintragen
+
+

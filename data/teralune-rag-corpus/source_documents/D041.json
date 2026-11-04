@@ -1,0 +1,75 @@
+{
+  "id": "D041",
+  "title": "Export manifest sample",
+  "product": "orbit",
+  "version": "3.0",
+  "language": "en",
+  "access": "PUBLIC",
+  "document_type": "reference",
+  "status": "current",
+  "topics": [
+    "export"
+  ],
+  "rag_features": [
+    "table_lookup"
+  ],
+  "format": "csv",
+  "organization": null,
+  "team": null,
+  "required_roles": [],
+  "authority": "official",
+  "synthetic": true,
+  "published_at": "2026-02-10",
+  "sections": [
+    {
+      "id": "D041-E01",
+      "heading": "Completed export manifest",
+      "text": "The manifest describes one completed export in ws-amber-lab. Each row names one attribute of the same job, not a new job. The selected interval is half-open: the start is included and the end is excluded. The row count describes exported measurements, not devices or source pages. A consumer should compare this record with its downloaded file before marking a local import complete.",
+      "fact_refs": [
+        "samples.export_id",
+        "samples.export_workspace",
+        "samples.export_rows",
+        "samples.export_format",
+        "samples.export_status",
+        "samples.export_start",
+        "samples.export_end"
+      ],
+      "table": {
+        "headers": [
+          "attribute",
+          "value"
+        ],
+        "rows": [
+          [
+            "export_id",
+            "{{samples.export_id}}"
+          ],
+          [
+            "workspace",
+            "{{samples.export_workspace}}"
+          ],
+          [
+            "rows",
+            "{{samples.export_rows}}"
+          ],
+          [
+            "format",
+            "{{samples.export_format}}"
+          ],
+          [
+            "status",
+            "{{samples.export_status}}"
+          ],
+          [
+            "start_inclusive",
+            "{{samples.export_start}}"
+          ],
+          [
+            "end_exclusive",
+            "{{samples.export_end}}"
+          ]
+        ]
+      }
+    }
+  ]
+}

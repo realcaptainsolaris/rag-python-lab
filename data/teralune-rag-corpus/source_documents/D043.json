@@ -1,0 +1,51 @@
+{
+  "id": "D043",
+  "title": "Webhook Signaturprüfung",
+  "product": "orbit",
+  "version": "3.0",
+  "language": "de",
+  "access": "PUBLIC",
+  "document_type": "guide",
+  "status": "current",
+  "topics": [
+    "webhook"
+  ],
+  "rag_features": [
+    "multilingual",
+    "chunk_boundary"
+  ],
+  "format": "md",
+  "organization": null,
+  "team": null,
+  "required_roles": [],
+  "authority": "official",
+  "synthetic": true,
+  "published_at": "2026-02-10",
+  "sections": [
+    {
+      "id": "D043-E01",
+      "heading": "Signatur am Eingang prüfen",
+      "text": "Der Header {{webhooks.signature_header}} enthält die Signatur nach {{webhooks.algorithm}}. Die Prüfung erfolgt über die unveränderten Body-Bytes, bevor JSON dekodiert wird. Eine Middleware, die Einrückungen oder die Reihenfolge von Feldern ändert, kann die Signatur ungültig machen, obwohl der sichtbare Inhalt gleich aussieht.\n\nBei einem Fehler die Verarbeitungskette des Requests untersuchen: Reverse Proxy, Dekomprimierung, Body-Parser und eigentliche Anwendungslogik. Nicht mehrere Varianten des Textes ausprobieren, bis eine davon passt. Der Empfänger muss wissen, welche Bytes tatsächlich signiert wurden.",
+      "fact_refs": [
+        "webhooks.signature_header",
+        "webhooks.algorithm"
+      ]
+    },
+    {
+      "id": "D043-E02",
+      "heading": "Schlüsselwechsel unterscheiden",
+      "text": "{{rotation.secret_header}} benennt den verwendeten Signaturschlüssel. Höchstens {{rotation.max_active_secrets}} Schlüssel sind gleichzeitig aktiv. Das Übergangsfenster beträgt {{rotation.overlap_minutes}} Minuten. Währenddessen müssen alle Empfängerinstanzen die vorgesehene Auswahl beherrschen.\n\nEin Signaturschlüssel ist kein OAuth-Token. Seine Prüfung bestätigt eine eingehende Zustellung und verleiht keine Berechtigung für API-Aufrufe. Ein Team sollte diese beiden Änderungen getrennt protokollieren, auch wenn beide beim gleichen Release stattfinden.",
+      "fact_refs": [
+        "rotation.secret_header",
+        "rotation.max_active_secrets",
+        "rotation.overlap_minutes"
+      ]
+    },
+    {
+      "id": "D043-E03",
+      "heading": "Fehlerprotokoll ohne Geheimnisse",
+      "text": "Das Protokoll enthält Subscription, Delivery-ID, verwendete Schlüsselkennung und Prüfergebnis. Schlüsselmaterial und vollständige Zugangsnachweise bleiben außerhalb des Protokolls. Ein fehlgeschlagener Vergleich ist nicht automatisch ein Nachweis eines Angriffs; ein verändernder Parser oder eine alte Empfängerinstanz kann denselben Befund erzeugen.\n\nNach einer Korrektur einen neuen Request und einen bereits bekannten Delivery-Identifier getrennt prüfen. Gültige Signatur und Deduplizierung sind unterschiedliche Entscheidungen. Ein korrekt signiertes Duplikat darf nicht nochmals dieselbe Folgeaktion auslösen.",
+      "fact_refs": []
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "id": "D003",
+  "title": "Webhook Delivery Contract",
+  "product": "orbit",
+  "version": "3.0",
+  "language": "en",
+  "access": "PUBLIC",
+  "document_type": "reference",
+  "status": "current",
+  "topics": [
+    "webhook"
+  ],
+  "rag_features": [
+    "exact_identifier",
+    "version_conflict",
+    "multi_evidence",
+    "chunk_boundary"
+  ],
+  "format": "md",
+  "sections": [
+    {
+      "id": "D003-E01",
+      "heading": "Acceptance and deadline",
+      "text": "Orbit 3.0 retries eligible failed webhook deliveries for {{versions.3.0.webhook_retry_hours}} hours from the first attempt. Network failures, HTTP 408, HTTP 429 and HTTP 5xx are retryable. HTTP 400, HTTP 401, HTTP 403, HTTP 404 and HTTP 410 terminate delivery immediately. HTTP 2xx acknowledges acceptance. Each HTTP request times out after {{webhooks.timeout_seconds}} seconds.\n\nA receiver should authenticate the request, persist the event and then acknowledge it. Returning success before durable persistence can lose a business action when the receiving process crashes. Returning success only after a slow downstream workflow can cause needless retries. Put the long-running action behind the receiver queue. Delivery history records the receiver status, but it cannot prove that the receiver completed its business action.",
+      "fact_refs": [
+        "versions.3.0.webhook_retry_hours",
+        "webhooks.timeout_seconds"
+      ]
+    },
+    {
+      "id": "D003-E02",
+      "heading": "Signing and scheduling",
+      "text": "Verify {{webhooks.signature_header}} with {{webhooks.algorithm}} over the raw request bytes before JSON decoding. Whitespace normalization changes the signed bytes. The initial retry delays are {{webhooks.backoff_minutes}} minutes, then hourly, with {{webhooks.jitter_percent}} percent jitter, until the deadline. Delivery is {{webhooks.delivery}}. Do not use a timestamp as a unique event key.\n\nA receiver clock that is wrong can make diagnostic logs appear out of order. Compare timestamps in UTC and keep the delivery identifier when recording a failure. During credential rotation allow only the explicitly configured overlapping secrets. Never accept an unsigned callback as a temporary workaround.",
+      "fact_refs": [
+        "webhooks.signature_header",
+        "webhooks.algorithm",
+        "webhooks.backoff_minutes",
+        "webhooks.jitter_percent",
+        "webhooks.delivery"
+      ]
+    },
+    {
+      "id": "D003-E03",
+      "heading": "Receiver persistence",
+      "text": "A duplicate can follow a successful receiver transaction if the acknowledgment is lost. The sender cannot distinguish that situation from a failed receiver. Store the identifier from {{webhooks.id_header}} with the committed business action. The deduplication record must survive a receiver restart. An in-memory set is insufficient when several receiver processes share the same queue.\n\nThe delivery history and receiver log serve different purposes. History shows attempts, while the receiver log connects a delivery to a local action. Keep these identifiers separate from a device name, which can change. A replay must preserve the delivery identifier when it represents the same delivery.",
+      "fact_refs": [
+        "webhooks.id_header"
+      ]
+    },
+    {
+      "id": "D003-E04",
+      "heading": "Deduplication lifetime",
+      "text": "Retain receiver deduplication records for {{webhooks.idempotency_hours}} hours after first acceptance. This receiver-side lifetime deliberately exceeds the Orbit 3.0 sender retry window. Expiring the record when the application task finishes is too early: a delayed duplicate could execute the same action again.\n\nUse a uniqueness constraint that includes the subscription identifier and delivery identifier. If two consumers intentionally process the same event for different business purposes, each consumer owns its own deduplication boundary. Do not share one global processed flag across unrelated consumers.",
+      "fact_refs": [
+        "webhooks.idempotency_hours"
+      ]
+    },
+    {
+      "id": "D003-E05",
+      "heading": "Reconcile a connection failure",
+      "text": "Consider a receiver that authenticates a request, commits a local work item and then loses its connection before the sender receives the success response. The sender has evidence of a failed attempt, while the receiver has evidence of a committed action. Neither record is necessarily wrong. The receiver must be able to map the repeated delivery to the existing action without asking the sender to prove that the first action happened.\n\nKeep the acceptance transaction small. Store the original delivery identity, subscription identity and a local action reference together. The slow work belongs behind that transaction. If an external system performs the business action, record a state that can distinguish queued, dispatched and reconciled. A process restart between dispatch and reconciliation needs a different repair from a request that never passed signature verification.\n\nWhen collecting logs, compare attempt identifiers, delivery identifiers and local action identifiers in separate columns. One delivery can have several attempts. One attempt can fail before a local action exists. A report that labels all three identifiers event ID discards the relationships needed to reconstruct the failure.",
+      "fact_refs": []
+    },
+    {
+      "id": "D003-E06",
+      "heading": "Replay review",
+      "text": "A manual replay should have an operator, a reason and a defined set of deliveries. Do not replay every request from an entire day solely because one downstream action is missing. First determine whether the action was never committed, was committed but not completed, or completed with an acknowledgment that was lost. Replaying the wrong layer can repeat a successful business operation.\n\nBefore authorizing the replay, confirm that the receiver persistence is still available. If its local record was removed too early, a receiver can no longer distinguish a duplicate from a fresh action using that record alone. Reconcile against the business system before recreating work. A new HTTP request cannot repair an ambiguous business history automatically.\n\nAfter the replay, compare the selected delivery set with the repaired local actions. Save a compact reconciliation record with references rather than copying full payloads into a broadly readable incident report. Report unresolved cases individually; a lower error count does not establish that every missing action was recovered.",
+      "fact_refs": []
+    }
+  ],
+  "organization": null,
+  "team": null,
+  "required_roles": [],
+  "authority": "official",
+  "synthetic": true,
+  "published_at": "2026-02-10"
+}

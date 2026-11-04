@@ -1,0 +1,49 @@
+{
+  "id": "D036",
+  "title": "Cobalt Workspace Supportfall",
+  "product": "orbit",
+  "version": "3.0",
+  "language": "de",
+  "access": "CUSTOMER",
+  "document_type": "support_case",
+  "status": "current",
+  "topics": [
+    "duplicate"
+  ],
+  "rag_features": [
+    "multi_evidence",
+    "acl",
+    "exact_identifier"
+  ],
+  "format": "md",
+  "organization": "org-cobalt",
+  "team": null,
+  "required_roles": [],
+  "authority": "official",
+  "synthetic": true,
+  "published_at": "2026-02-10",
+  "sections": [
+    {
+      "id": "D036-E01",
+      "heading": "Fehler nach Exportumstellung",
+      "text": "Fall {{samples.support_cobalt}} betrifft org-cobalt. Der Exportclient meldete eine erfolgreiche Anmeldung, konnte jedoch keinen Exportauftrag anlegen. Ein Lesezugriff auf Messwerte funktionierte. Der Betreiber hatte den Client aus einem Reader-Deployment übernommen und dieselben Scopes beibehalten.\n\nDer sichtbare Erfolg des Lesetests führte zunächst zur Vermutung, die Exportwarteschlange sei blockiert. Es war jedoch gar kein Auftrag angelegt worden. Die Fehleranalyse begann deshalb vor der Warteschlange: beim abgewiesenen Erstellungsaufruf. Ein Queue-Neustart hätte an diesem Zustand nichts geändert.",
+      "fact_refs": [
+        "samples.support_cobalt"
+      ]
+    },
+    {
+      "id": "D036-E02",
+      "heading": "Berechtigung korrigieren",
+      "text": "Zum Anlegen eines Exports wird {{export.scope}} benötigt. Im Workspace besitzt die Produktrolle admin diese Berechtigung. Die Integration erhielt einen für diesen Zweck begrenzten Zugangsnachweis; ein bloßer Wechsel des Anzeigenamens änderte keine Scopes.\n\nAnschließend prüfte der Betreiber einen neu angelegten Auftrag mit dessen zurückgegebener Kennung. Das Protokoll enthielt den Workspace und den Scope-Namen, aber keinen Token. Eine bereits vorhandene Datei eines anderen Auftrags wäre kein Nachweis für den erfolgreichen Erstellungsaufruf gewesen.",
+      "fact_refs": [
+        "export.scope"
+      ]
+    },
+    {
+      "id": "D036-E03",
+      "heading": "Was nicht geöffnet wurde",
+      "text": "Die Bearbeitung gewährte dem Kunden keinen Zugriff auf interne Queue-Runbooks. Eine Produktrolle im eigenen Workspace erweitert keine internen Dokumentberechtigungen. Der Support fasste nur die für den Kunden notwendige Konfigurationskorrektur zusammen.\n\nFür die spätere Übergabe wurden das Ziel des Exportclients und der zuständige technische Kontakt festgehalten. Die Org-Zuordnung bleibt Teil des Fallrecords, damit ein gleicher Clientname bei einem anderen Kunden nicht zur Vermischung von Unterlagen führt.",
+      "fact_refs": []
+    }
+  ]
+}

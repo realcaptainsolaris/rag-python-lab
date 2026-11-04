@@ -1,0 +1,4 @@
+event,meaning,delivery,payload_key
+alert.opened,threshold condition entered,webhook,alert_id
+alert.resolved,clear condition satisfied,webhook,alert_id
+alert.suppressed,notification suppressed during maintenance,audit only,maintenance_id

@@ -1,0 +1,69 @@
+[
+  {
+    "id": "anonymous",
+    "kind": "anonymous",
+    "organization": null,
+    "teams": [],
+    "roles": []
+  },
+  {
+    "id": "customer_basic",
+    "kind": "customer",
+    "organization": "org-amber",
+    "teams": [],
+    "roles": [
+      "viewer"
+    ]
+  },
+  {
+    "id": "customer_admin",
+    "kind": "customer",
+    "organization": "org-amber",
+    "teams": [],
+    "roles": [
+      "admin"
+    ]
+  },
+  {
+    "id": "customer_cobalt",
+    "kind": "customer",
+    "organization": "org-cobalt",
+    "teams": [],
+    "roles": [
+      "admin"
+    ]
+  },
+  {
+    "id": "teralune_support",
+    "kind": "staff",
+    "organization": "teralune",
+    "teams": [
+      "support"
+    ],
+    "roles": [
+      "support"
+    ]
+  },
+  {
+    "id": "teralune_engineer",
+    "kind": "staff",
+    "organization": "teralune",
+    "teams": [
+      "operations"
+    ],
+    "roles": [
+      "engineer"
+    ]
+  },
+  {
+    "id": "security_admin",
+    "kind": "staff",
+    "organization": "teralune",
+    "teams": [
+      "security"
+    ],
+    "roles": [
+      "security_admin"
+    ]
+  }
+]

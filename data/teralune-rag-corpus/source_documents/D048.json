@@ -1,0 +1,57 @@
+{
+  "id": "D048",
+  "title": "Versionswechsel Checkliste",
+  "product": "orbit",
+  "version": "3.0",
+  "language": "de",
+  "access": "PUBLIC",
+  "document_type": "guide",
+  "status": "current",
+  "topics": [
+    "versionswechsel"
+  ],
+  "rag_features": [
+    "version_conflict",
+    "multi_evidence",
+    "chunk_boundary"
+  ],
+  "format": "pdf",
+  "organization": null,
+  "team": null,
+  "required_roles": [],
+  "authority": "official",
+  "synthetic": true,
+  "published_at": "2026-02-10",
+  "sections": [
+    {
+      "id": "D048-E01",
+      "heading": "Vor dem Wechsel",
+      "text": "Die Checkliste betrifft den Wechsel von Orbit 2.4 zu 3.0. Erfasst werden API-Ziel, Credentialtyp, Tokencache, Receiver und Workspace-Richtlinie. Ein gemeinsamer Releasetermin bedeutet nicht, dass alle Komponenten denselben Zustand besitzen. Einzelne Sender können während des Übergangs auf der alten Generation verbleiben.\n\nVor der Umstellung die aktuelle Konfiguration sichern und die Besitzer der einzelnen Integrationen benennen. Den gespeicherten Retentionwert ausdrücklich notieren. Ein Upgrade der Produktgeneration ändert diese vorhandene Einstellung nicht automatisch.",
+      "fact_refs": []
+    },
+    {
+      "id": "D048-E02",
+      "heading": "Vertragswerte prüfen",
+      "text": "Der API-Präfix wechselt von {{versions.2.4.api_prefix}} zu {{versions.3.0.api_prefix}}. Token gelten {{versions.3.0.access_token_minutes}} statt {{versions.2.4.access_token_minutes}} Minuten. Die Ereignisnamen wechseln von {{legacy.event_v2}} zu {{legacy.event_v3}}. Eine passende API-Konfiguration sagt noch nichts über die Subscription des Receivers aus.\n\nDer Receiver muss die erwartete Envelopeform verarbeiten, bevor die alte Subscription stillgelegt wird. Während der Übergangsphase beide Originalkennungen protokollieren. Eine lokale Umbenennung des Ereignistyps darf nicht verbergen, welche Generation tatsächlich zugestellt hat.",
+      "fact_refs": [
+        "versions.2.4.api_prefix",
+        "versions.3.0.api_prefix",
+        "versions.3.0.access_token_minutes",
+        "versions.2.4.access_token_minutes",
+        "legacy.event_v2",
+        "legacy.event_v3"
+      ]
+    },
+    {
+      "id": "D048-E03",
+      "heading": "Nach dem Wechsel",
+      "text": "Die Wiederholungsfrist beträgt {{versions.3.0.webhook_retry_hours}} Stunden gegenüber {{versions.2.4.webhook_retry_hours}} Stunden zuvor. Das Workspace-Budget wächst von {{versions.2.4.rate_limit_per_minute}} auf {{versions.3.0.rate_limit_per_minute}} Anfragen pro Minute. Prüfen Sie Reader, Writer, Export und Callback getrennt, bevor der Wechsel abgeschlossen wird.\n\nEin Rollback stellt nicht automatisch den vorherigen Receiver-Cleanup wieder her. Die verantwortliche Person gleicht deshalb Plattformzustand und lokale Persistenz gemeinsam ab. Erst danach werden alte Credentialzuordnungen und stillgelegte Scheduler entfernt.",
+      "fact_refs": [
+        "versions.3.0.webhook_retry_hours",
+        "versions.2.4.webhook_retry_hours",
+        "versions.2.4.rate_limit_per_minute",
+        "versions.3.0.rate_limit_per_minute"
+      ]
+    }
+  ]
+}

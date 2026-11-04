@@ -1,0 +1,70 @@
+{
+  "id": "D024",
+  "title": "Alert rules",
+  "product": "orbit",
+  "version": "3.0",
+  "language": "en",
+  "access": "PUBLIC",
+  "document_type": "guide",
+  "status": "current",
+  "topics": [
+    "alert"
+  ],
+  "rag_features": [
+    "paraphrase",
+    "chunk_boundary",
+    "multi_evidence"
+  ],
+  "format": "md",
+  "organization": null,
+  "team": null,
+  "required_roles": [],
+  "authority": "official",
+  "synthetic": true,
+  "published_at": "2026-02-10",
+  "sections": [
+    {
+      "id": "D024-E01",
+      "heading": "Opening a temperature alert",
+      "text": "The standard temperature rule evaluates {{alerts.evaluation}}. It opens after {{alerts.required_consecutive}} consecutive readings strictly above {{alerts.trigger_value}}. A reading exactly on the threshold does not satisfy a strict greater-than condition. Missing samples {{alerts.missing_samples}}.\n\nThe count is per device and measurement series. Interleaving readings from several devices must not create a combined streak. A noisy sensor can cross the threshold briefly without opening an alert if the required sequence is interrupted by a lower value. Record the readings that established the transition when investigating an unexpected opening.",
+      "fact_refs": [
+        "alerts.evaluation",
+        "alerts.required_consecutive",
+        "alerts.trigger_value",
+        "alerts.missing_samples"
+      ]
+    },
+    {
+      "id": "D024-E02",
+      "heading": "Resolving the condition",
+      "text": "The alert resolves when a subsequent accepted reading is at or below {{alerts.clear_value}}. This lower clear threshold provides hysteresis: a reading below the opening threshold but above the clear threshold leaves an open alert open.\n\nA transport acknowledgment is unrelated to the alert state. A webhook receiver can successfully acknowledge an alert.opened event while the device continues reporting high values. Conversely, a receiver outage does not prevent the engine from recording a later resolution. Read the alert timeline before using delivery history to infer the physical state.",
+      "fact_refs": [
+        "alerts.clear_value"
+      ],
+      "level": 3,
+      "parent_evidence_id": "D024-E01"
+    },
+    {
+      "id": "D024-E03",
+      "heading": "Maintenance windows",
+      "text": "The standard maintenance window lasts {{alerts.maintenance_minutes}} minutes. Rule evaluation continues during maintenance, but suppressed notifications are recorded in audit history instead of being delivered as callbacks. Keep maintenance and resolution separate in the user interface: suppressing notification does not say that the temperature returned to normal.\n\nA maintenance operator should record the affected device group and window owner. When maintenance ends, inspect the current alert state before resuming a downstream workflow. Replaying old opening notifications without checking the latest state can reopen an already resolved local task.",
+      "fact_refs": [
+        "alerts.maintenance_minutes"
+      ],
+      "level": 3,
+      "parent_evidence_id": "D024-E01"
+    },
+    {
+      "id": "D024-E04",
+      "heading": "A threshold timeline",
+      "text": "Suppose a device reports values of 79, 81, 82 and 83 in that order. The first value is below the opening threshold. The later consecutive values establish the opening condition. A receiver may see the notification after the last of those measurements because notification delivery follows ingestion. Do not move the measurement timestamps forward to match the receiver log.\n\nNow consider an open alert followed by 78 and then 74. The first reading is lower than the opening threshold but does not meet the clear condition. The later reading resolves the alert. This distinction is why a display showing the latest value can appear inconsistent with an open state if the viewer assumes one threshold controls both transitions.\n\nInspect the full sequence before changing the rule. A threshold adjustment can hide a configuration or unit problem. If a firmware update changed the physical unit while preserving the measurement name, the sequence may be internally incomparable. Repair the series definition before interpreting the alert history as evidence of unstable equipment.",
+      "fact_refs": []
+    },
+    {
+      "id": "D024-E05",
+      "heading": "Maintenance and receiver state",
+      "text": "An alert timeline and a receiver task list represent different systems. Maintenance suppresses notifications while the rule continues evaluating incoming measurements. A downstream task manager may therefore retain an old opening task even after the platform records a resolution that was not delivered through the same path. The integration needs an explicit reconciliation procedure for that task state.\n\nAt the end of maintenance, inspect the current platform state and the outstanding local task before sending reminders. Do not infer resolution solely from a quiet callback queue. The queue can be quiet because nothing changed, because delivery is delayed, or because the relevant notification was suppressed. These explanations require different evidence.\n\nA repair report should identify the device, series, maintenance interval and observed state transitions. Avoid a blanket statement that alerts were down if the engine continued recording transitions. Identify which component stopped doing the expected work: ingestion, evaluation, notification or the receiver application.",
+      "fact_refs": []
+    }
+  ]
+}

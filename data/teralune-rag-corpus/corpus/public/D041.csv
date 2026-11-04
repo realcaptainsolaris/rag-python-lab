@@ -1,0 +1,8 @@
+attribute,value
+export_id,exp-amber-041
+workspace,ws-amber-lab
+rows,4200
+format,JSONL
+status,completed
+start_inclusive,2026-03-10T00:00:00Z
+end_exclusive,2026-03-11T00:00:00Z

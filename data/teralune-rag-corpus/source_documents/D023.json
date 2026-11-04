@@ -1,0 +1,54 @@
+{
+  "id": "D023",
+  "title": "Rate budget",
+  "product": "orbit",
+  "version": "3.0",
+  "language": "en",
+  "access": "PUBLIC",
+  "document_type": "reference",
+  "status": "current",
+  "topics": [
+    "rate"
+  ],
+  "rag_features": [
+    "multi_evidence",
+    "version_conflict",
+    "exact_identifier"
+  ],
+  "format": "md",
+  "organization": null,
+  "team": null,
+  "required_roles": [],
+  "authority": "official",
+  "synthetic": true,
+  "published_at": "2026-02-10",
+  "sections": [
+    {
+      "id": "D023-E01",
+      "heading": "Shared workspace budget",
+      "text": "Orbit 3.0 allows {{versions.3.0.rate_limit_per_minute}} requests per minute per {{api.rate_limit_scope}}. The window is a {{api.rate_limit_window}}. Separate API keys in one workspace do not receive independent budgets. A dashboard reader and a bulk sender can therefore consume the same allowance.\n\nBefore increasing sender concurrency, inventory all callers using the workspace. A single process can appear well below the limit while the combined traffic is excessive. Include polling, retries and administrative calls in the traffic record. Key rotation does not reset the workspace budget.",
+      "fact_refs": [
+        "versions.3.0.rate_limit_per_minute",
+        "api.rate_limit_scope",
+        "api.rate_limit_window"
+      ]
+    },
+    {
+      "id": "D023-E02",
+      "heading": "RATE-201 response",
+      "text": "RATE-201 means {{errors.RATE-201}}. The rejected request has not gained capacity merely because the caller retries with another token. Back off and coordinate the shared senders. Avoid synchronizing every agent at the top of the next minute; a simultaneous burst can immediately exhaust the new window.\n\nA rate error and an invalid scope are separate conditions. An application should not renew credentials as its default response to RATE-201. Collect the request identifier and workspace without recording token contents.",
+      "fact_refs": [
+        "errors.RATE-201"
+      ]
+    },
+    {
+      "id": "D023-E03",
+      "heading": "Plan for older deployments",
+      "text": "Orbit 2.4 has a budget of {{versions.2.4.rate_limit_per_minute}} requests per minute; Orbit 1.8 has {{versions.1.8.rate_limit_per_minute}}. A fleet that shares client configuration across generations must use the correct contract for each target.\n\nUse batching when the sender has many small observations. Page size changes affect read traversal; batch size affects write requests. Neither changes the published request budget. When estimating throughput, distinguish observations per request from requests per minute and allow headroom for operational traffic.",
+      "fact_refs": [
+        "versions.2.4.rate_limit_per_minute",
+        "versions.1.8.rate_limit_per_minute"
+      ]
+    }
+  ]
+}
